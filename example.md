@@ -1,0 +1,3 @@
+# Referensi Layanan# Referensi Layanan# Referensi Layanan# Referensi Layanan# Referensi Layanan# Referensi Layanan# Referensi Layanan# Referensi Layanan# Referensi Layanan
+> Acalvio Deception Merupakan Produk yang memiliki metodologies serupa dengan Honeypots yang menciptakan **Sensor Trap** yang dapat digunakan untuk menjebak Hackers dan Vulnerability Scanners
+Active Learning Yang Berasal dari Acalvio AI ini berasal Dari Pembelajaran Dari Setiap Data yang telah masuk ke **Deception** Atau Honeypots yang diciptakan oleh Acalvio AI ini

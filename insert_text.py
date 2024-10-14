@@ -1,6 +1,3 @@
-import sys
-import os
-
 def readfile_and_insert_contents(file, text):
     # open the file
     with open(file, 'r') as file:
@@ -8,14 +5,14 @@ def readfile_and_insert_contents(file, text):
             contents = file.readlines() # reads every line into a list of lines
         except Exception as err:
             print(err)
-    contents.insert(0,text + '\n\n')
+    contents.insert(0,text)
     return contents
 
 def writefile(file,contents):
     with open(file, 'w') as file:
         try:
             file.writelines(contents)
-            print("Content Writed Into File")
+            return "Content Writed Into File"
         except Exception as err:
             print(err)
     # insert a text into array or list of text that have been read before from the file
