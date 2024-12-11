@@ -61,7 +61,13 @@ def main():
     """
     Main function to parse arguments and convert CSV to Markdown.
     """
-    parser = argparse.ArgumentParser(description="Convert a CSV file into a Markdown table.")
+    parser = argparse.ArgumentParser(
+        description=
+        """
+        Convert a CSV file to a formatted Markdown table.
+        Usage: python3 csv_to_markdown.py {input_file_path} {output_file_path}
+        """
+    )
     parser.add_argument("file_path", type=str, help="Path to the CSV file")
     parser.add_argument("file_output", type=str, help="Path to the Output File Path")
     args = parser.parse_args()
