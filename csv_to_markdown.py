@@ -26,6 +26,11 @@ def csv_to_markdown(file_path,output):
         if not rows:
             return "The provided CSV file is empty."
         
+        # Wrap the second column first before formatting (hooks column)
+        for row in rows[1:]:
+            if len(row) > 1:
+                row[1] = f"``{row[1]}``"
+        
         # Calculate column widths
         column_widths = calculate_column_widths(rows)
         
@@ -35,6 +40,7 @@ def csv_to_markdown(file_path,output):
         
         # Row Formatting
         def format_row(row):
+            # row = [f"``{cell}``" if index == 1 else cell for index, cell in enumerate(row)]
             return " | ".join(f"{cell:<{width}}" for cell, width in zip(row, column_widths))
 
         # Build Markdown table
