@@ -27,9 +27,9 @@ def csv_to_markdown(file_path,output):
             return "The provided CSV file is empty."
         
         # Wrap the second column first before formatting (hooks column)
-        for row in rows[1:]:
-            if len(row) > 1:
-                row[1] = f"``{row[1]}``"
+        # for row in rows[1:]:
+        #     if len(row) > 1:
+        #         row[1] = f"``{row[1]}``"
         
         # Calculate column widths
         column_widths = calculate_column_widths(rows)

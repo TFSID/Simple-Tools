@@ -6,12 +6,13 @@ def readfile_and_insert_contents(file, text):
         except Exception as err:
             print(err)
     contents.insert(0,text)
+    print(contents)
     return contents
 
-def writefile(file,contents):
-    with open(file, 'w') as file:
+def writefile(output,contents):
+    with open(output, 'w') as output:
         try:
-            file.writelines(contents)
+            output.writelines(contents)
             return "Content Writed Into File"
         except Exception as err:
             print(err)
@@ -19,8 +20,9 @@ def writefile(file,contents):
 
 input_file = "example.md"
 input_text= "# Referensi Layanan"
+file_out="out.md"
 input_content = readfile_and_insert_contents(file=input_file,text=input_text)
 
-writefile(input_file,contents=input_content)
-
+writefile(output=file_out,contents=input_content)
+# readfile_and_insert_contents(file=input_file,text=input_text)
 
