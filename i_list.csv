@@ -1,2 +1,4 @@
 Nama Kerentanan, Lokasi Kerentanan, Severity, CVSS
-SQL Injection, ``http://127.0.0.1:8000/ringkasan-eksekutif/``, High, 9.5
+Sensitive Data Exposure, ``http://127.0.0.1:8000/ringkasan-eksekutif/``, {{medium_severity}}, 9.0
+Broken Authentication, ``/login``, {{low_severity}}, 5.5
+Cross-Site Scripting (XSS), ``/api/authenticate``, {{high_severity}}, 9.5

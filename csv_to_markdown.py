@@ -26,6 +26,14 @@ def csv_to_markdown(file_path,output):
         if not rows:
             return "The provided CSV file is empty."
         
+        # Ensure each row has the same number of columns as the header
+        max_columns = max(len(row) for row in rows)
+        for row in rows:
+            while len(row) < max_columns:
+                row.append("")  # Pad missing columns with empty strings
+
+        
+        
         # Wrap the second column first before formatting (hooks column)
         # for row in rows[1:]:
         #     if len(row) > 1:

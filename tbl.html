@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to DataTable</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+</head>
+
+<body>
+    <table id="dataTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Issue Type</th>
+                <th> Total</th>
+                <th> Path</th>
+                <th> Referer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Informational</td>
+                <td> 19</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Cross-site request forgery</td>
+                <td> 5</td>
+                <td> </td>
+                <td> WSTG-... </td>
+            </tr>
+            <tr>
+                <td>Base64-encoded data in parameter</td>
+                <td> 1</td>
+                <td> </td>
+                <td> WSTG-...</td>
+            </tr>
+            <tr>
+                <td>Cacheable HTTPS response</td>
+                <td> 2</td>
+                <td> </td>
+                <td> WSTG-...</td>
+            </tr>
+            <tr>
+                <td>Cross-domain Referer leakage</td>
+                <td> 1</td>
+                <td> </td>
+                <td> WSTG-...</td>
+            </tr>
+            <tr>
+                <td>Email addresses disclosed</td>
+                <td> 2</td>
+                <td> </td>
+                <td> WSTG-...</td>
+            </tr>
+            <tr>
+                <td>Frameable response (potential Clickjacking)</td>
+                <td> 1</td>
+                <td> </td>
+                <td> WSTG-...</td>
+            </tr>
+            <tr>
+                <td>input returned in response (reflected)</td>
+                <td> 1</td>
+                <td> </td>
+                <td> WSTG-...</td>
+            </tr>
+            <tr>
+                <td>Path-relative style sheet import</td>
+                <td> 5</td>
+                <td> </td>
+                <td> WSTG-...</td>
+            </tr>
+            <tr>
+                <td>TLS Certificate</td>
+                <td> 1</td>
+                <td> </td>
+                <td> WSTG-... </td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+</body>
+
+</html>
