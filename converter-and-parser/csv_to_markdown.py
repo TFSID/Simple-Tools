@@ -22,37 +22,35 @@ def csv_to_markdown(file_path,output):
         with open(file_path, newline='', encoding='utf-8') as csvfile:
             reader = csv.reader(csvfile)
             rows = list(reader)
-        
+
         if not rows:
             return "The provided CSV file is empty."
-        
+
         # Ensure each row has the same number of columns as the header
         max_columns = max(len(row) for row in rows)
         for row in rows:
             while len(row) < max_columns:
                 row.append("")  # Pad missing columns with empty strings
 
-        
-        
         # Wrap the second column first before formatting (hooks column)
         # for row in rows[1:]:
         #     if len(row) > 1:
         #         row[1] = f"``{row[1]}``"
-        
+
         # Calculate column widths
         column_widths = calculate_column_widths(rows)
-        
+
         # Extract headers and data
         headers = rows[0]
         data = rows[1:]
-        
+
         # Row Formatting
         def format_row(row):
             # row = [f"``{cell}``" if index == 1 else cell for index, cell in enumerate(row)]
             return " | ".join(f"{cell:<{width}}" for cell, width in zip(row, column_widths))
 
         # Build Markdown table
-        
+
         markdown_table = []
         markdown_table.append(format_row(headers))
         markdown_table.append(" | ".join("-" * width for width in column_widths))  # Separator
@@ -70,6 +68,11 @@ def csv_to_markdown(file_path,output):
         return f"Error: File '{file_path}' not found."
     except Exception as e:
         return f"An error occurred: {e}"
+
+
+def change_list_to_newline(input):
+    with open(input, "r") as f_input:
+        reader = csv.reader(f_input)
 
 def main():
     """

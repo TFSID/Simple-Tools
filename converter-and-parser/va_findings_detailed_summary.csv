@@ -1,0 +1,16 @@
+Nama Kerentanan,Path,Tingkat Keparahan,Jumlah,Deskripsi
+Cross-Site Scripting (reflected),"[```webaccess/information```,```/webaccess/Registration```,```/webaccess/ResetPassword```]",High {.s-high},1,Potensi memungkinkan skrip berbahaya dijalankan di browser pengguna.
+Cross-Site request forgery,"[```/webaccess/Registration```,```/webaccess/ResetPassword```]",Medium {.s-medium},2,Dapat mengelabui pengguna untuk melakukan tindakan tidak diinginkan di situs tepercaya.
+Open redirection (DOM-Based),-,Low {.s-low},3,Dapat mengarahkan pengguna ke URL berbahaya.
+Password submitted using GET method,-,Low {.s-low},3,Data sensitif terekspos dalam parameter URL.
+Strict transport security not enforced,-,Low {.s-low},1,Tidak adanya HSTS dapat membuka komunikasi terhadap serangan downgrade.
+Unencrypted communications,-,Low {.s-low},1,Data yang ditransmisikan tanpa enkripsi rentan terhadap penyadapan.
+Vulnerable JavaScript dependency,-,Low {.s-low},2,Perpustakaan JavaScript yang usang atau tidak aman terdeteksi.
+Base64 encoded data in parameter,-,Info {.s-info},1,Tidak kritis; data yang dikodekan terdeteksi dalam permintaan.
+Cacheable HTTPS response,-,Info {.s-info},2,Respon aman yang salah ditandai dapat di-cache.
+Cross domain Referer leakage,-,Info {.s-info},1,Header Referer mengungkapkan informasi lintas domain.
+Email addresses disclosed,-,Info {.s-info},2,Alamat email ditemukan di konten publik atau terekspos.
+Frameable response (potential clickjacking),-,Info {.s-info},1,Halaman dapat disematkan dalam iframe
+Input returned in response (reflected),-,Info {.s-info},3,Input yang dipantulkan dalam respon HTTP dapat menunjukkan kerentanan XSS.
+Path-relative sheet import,-,Info {.s-info},4,Jalur stylesheet yang tidak benar; risiko manipulasi atau injeksi.
+TLS certificate,-,Info {.s-info},1,Potensi masalah terdeteksi pada sertifikat TLS.

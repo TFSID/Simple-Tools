@@ -14,12 +14,16 @@ def markdown_to_csv(markdown_table, output_csv_file):
     # Remove the header separator line (e.g., | --- | --- |)
     header = lines[0]
     rows = lines[2:]  # Skipping the separator line
+    print(header)
+    # print(rows)
 
     # Prepare data for CSV
     csv_data = []
-    csv_data.append([cell.strip() for cell in header.split("|")[1:-1]])  # Header row
+    # csv_data.append([cell.strip() for cell in header.split("|")[0:-1]])  # Header row with maxsplit length
+    csv_data.append([cell.strip() for cell in header.split("|")])  # Header row
     for row in rows:
-        csv_data.append([cell.strip() for cell in row.split("|")[1:-1]])
+        # csv_data.append([cell.strip() for cell in row.split("|")[0:-1]]) # rows with maxsplit length
+        csv_data.append([cell.strip() for cell in row.split("|")])
 
     # Write CSV data to a file
     with open(output_csv_file, mode='w', newline='', encoding='utf-8') as csvfile:
