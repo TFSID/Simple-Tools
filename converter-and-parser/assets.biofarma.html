@@ -1,0 +1,26 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>CSV to DataTable</title>
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        </head>
+        <body>
+        <table id="dataTable" class="display" style="width:100%">
+        <thead>
+        <tr>
+        <th>Host</th><th>IP Address</th><th>Type</th><th>Technologies</th></tr></thead><tbody><tr><td>bop.biofarma.co.id</td><td>35.219.110.212</td><td>web-application</td><td>Bootstrap,Google Cloud,Google Cloud Storage,HTTP/3,jQuery</td></tr><tr><td>doc-bind-ui.biofarma.co.id</td><td>34.49.164.131</td><td>web-application</td><td>Google Cloud,Google Cloud CDN,HTTP/3</td></tr><tr><td>klms.biofarma.co.id</td><td>34.54.42.130</td><td>web-application</td><td>Google Cloud,Google Cloud CDN,HSTS,HTTP/3,JSZip,TinyMCE,Unpkg</td></tr><tr><td>leaflet.biofarma.co.id</td><td>34.95.126.160</td><td>web-application</td><td>Google Cloud,Google Cloud CDN,HSTS,HTTP/3,Next.js,Nginx:1.18.0,Node.js,React,Ubuntu,Webpack</td></tr><tr><td>exdrive.biofarma.co.id</td><td>60.253.104.25</td><td>web-application</td><td>Apache HTTP Server:2.4.29,HSTS,Nextcloud,PHP,Ubuntu</td></tr><tr><td>kpk-aroma.biofarma.co.id</td><td>34.101.44.48</td><td>web-application</td><td>HSTS,Nginx:1.18.0,Ubuntu</td></tr><tr><td>gateway-endpoint.biofarma.co.id</td><td>34.49.234.34</td><td>web-application</td><td>Express,HTTP/3,Kong:3.6.1,Node.js</td></tr><tr><td>doc-bind-mobile.biofarma.co.id</td><td>34.49.164.131</td><td>web-application</td><td>Express,Google Cloud,Google Cloud CDN,HTTP/3,Node.js </td></tr><tr><td>psiap.biofarma.co.id</td><td>34.8.227.178</td><td>web-application</td><td>Google Cloud,Google Cloud CDN,HSTS,HTTP/3,Nginx</td></tr><tr><td>pph.biofarma.co.id</td><td>34.128.157.213</td><td>web-application</td><td>Google Cloud,Google Cloud CDN,HSTS,HTTP/3,Nginx</td></tr><tr><td>ppn.biofarma.co.id</td><td>34.128.157.213</td><td>web-application</td><td>Google Cloud,Google Cloud CDN,HSTS,HTTP/3,Nginx</td></tr><tr><td>mobile-mess-dev.biofarma.co.id</td><td>35.201.96.64</td><td>web-application</td><td>Google Cloud,Google Cloud CDN,HSTS,HTTP/3</td></tr><tr><td>workspace.biofarma.co.id</td><td>216.58.212.243</td><td>web-application</td><td>Google Analytics</td></tr><tr><td>vendors.biofarma.co.id</td><td>60.253.104.27</td><td>web-application</td><td>Bootstrap,CodeIgniter,FlexSlider,Flickity:2,HSTS,Modernizr,Nginx,OWL Carousel,PHP,SweetAlert,Unpkg,jQuery,reCAPTCHA</td></tr>
+        </tbody>
+        </table>
+        <script>
+            $(document).ready(function() {
+                $('#dataTable').DataTable();
+            });
+        </script>
+        </body>
+        </html>
+        

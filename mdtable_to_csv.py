@@ -35,7 +35,7 @@ def markdown_to_csv(markdown_table, output_csv_file):
 # Example Markdown table
 # markdown_table = """
 # | Name       | Age | Occupation   |
-# |------------|-----|--------------|
+# |------------|-----|--------------| 
 # | John Doe   | 28  | Developer    |
 # | Jane Smith | 34  | Designer     |
 # | Bob Brown  | 45  | Manager      |

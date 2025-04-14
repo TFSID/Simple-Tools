@@ -12,7 +12,7 @@ def csv_to_html(file_path, output):
     try:
         # Read the CSV file
         with open(file_path, newline='', encoding='utf-8') as csvfile:
-            reader = csv.reader(csvfile)
+            reader = csv.reader(csvfile, delimiter=',', quotechar='"', skipinitialspace=True)
             rows = list(reader)
         
         if not rows:
