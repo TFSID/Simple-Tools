@@ -13,44 +13,42 @@ def calculate_target_sales():
 
         if avg_price <= 0:
             raise ValueError("Harga rata-rata harus lebih dari 0.")
+        
+        margin_rate = 10 / 100  # 10% margin
+        margin_rate_lower = 5 / 100  # 5% margin
+        margin_rate_higher = 20 / 100  # 10% margin
 
-        # Margin rates
-        margin_5 = 5 / 100
-        margin_10 = 10 / 100
-        margin_20 = 20 / 100
+        # Tambahkan Harga Jual Produk dengan Margin 10% per unit
+        selling_price = avg_price * margin_rate
+        
+        # Tambahkan Harga Jual Produk dengan Margin 5% per unit
+        selling_price_lower = avg_price / margin_rate_lower
 
-        # Hitung harga jual per unit berdasarkan margin
-        selling_5 = avg_price / (1 - margin_5)
-        selling_10 = avg_price / (1 - margin_10)
-        selling_20 = avg_price / (1 - margin_20)
+        # Tambahkan Harga Jual Produk dengan Margin 20% per unit
+        selling_price_higher = avg_price * margin_rate_higher
 
-        # Hitung jumlah unit yang harus terjual
-        units_5 = total_income_needed / selling_5
-        units_10 = total_income_needed / selling_10
-        units_20 = total_income_needed / selling_20
-
+        # units_needed = total_income_needed / avg_price
+        units_needed = total_income_needed / selling_price
+        units_needed_lower = total_income_needed / selling_price_lower
+        units_needed_higher = total_income_needed / selling_price_higher
+        
         result.set(
             f"--- Hasil Perhitungan ---\n"
-            f"Total Modal        : Rp {total_modal:,.0f}\n"
-            f"Target Omzet       : Rp {total_income_needed:,.0f}\n\n"
-            f"== Dengan Margin 5% ==\n"
-            f"Harga Jual / Unit  : Rp {selling_5:,.0f}\n"
-            f"Unit Dibutuhkan    : {units_5:.1f} unit\n\n"
-            f"== Dengan Margin 10% ==\n"
-            f"Harga Jual / Unit  : Rp {selling_10:,.0f}\n"
-            f"Unit Dibutuhkan    : {units_10:.1f} unit\n\n"
-            f"== Dengan Margin 20% ==\n"
-            f"Harga Jual / Unit  : Rp {selling_20:,.0f}\n"
-            f"Unit Dibutuhkan    : {units_20:.1f} unit"
+            f"Total Modal: Rp {total_modal:,.0f}\n"
+            f"Target Omzet: Rp {total_income_needed:,.0f}\n"
+            # f"Unit yang Harus Terjual: {units_needed:.1f} unit\n"
+            f"Unit yang Harus Terjual Jika Margin 20%: {units_needed_higher:.1f} unit\n"
+            f"Unit yang Harus Terjual Jika Margin 10%: {units_needed:.1f} unit\n"
+            f"Unit yang Harus Terjual Jika Margin 5%: {units_needed_lower:.1f} unit\n"
+            f"Status: {'✅ Target Profit Tercapai' if units_needed * selling_price >= total_income_needed else '❌ Belum Tercapai'}"
         )
-
     except ValueError:
         messagebox.showerror("Input Tidak Valid", "Pastikan semua kolom diisi dengan angka yang valid!")
 
 # UI Setup
 root = tk.Tk()
 root.title("Kalkulator Target Penjualan")
-root.geometry("500x600")
+root.geometry("500x400")
 root.resizable(False, False)
 
 tk.Label(root, text="Modal Awal (Rp)", font=("Arial", 10)).pack(pady=5)
