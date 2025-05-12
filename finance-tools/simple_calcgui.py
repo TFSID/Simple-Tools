@@ -27,7 +27,7 @@ def on_calculate():
         supplier_price = float(entry_supplier.get())
         admin_pct = 8
 
-        margin_main = 10
+        margin_main = 15
         margin_lower = margin_main - 5
         margin_higher = margin_main + 5
 
@@ -49,6 +49,7 @@ def on_calculate():
 
     except ValueError:
         messagebox.showerror("Input Tidak Valid", "Masukkan angka yang benar pada harga supplier!")
+
 
 # UI Setup
 root = tk.Tk()
