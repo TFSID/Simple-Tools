@@ -1,0 +1,1352 @@
+{
+  "id": "generated_unique_id",
+  "title": "Konversi index.html ke Komponen Next.js",
+  "description": "Daftar tugas komprehensif untuk mengonversi file HTML tunggal (index.html) ke dalam struktur proyek Next.js dengan komponen React menggunakan TypeScript, termasuk penanganan CSS, JavaScript, dan assets.",
+  "created_at": "2025-11-08T21:38:10.084023+00:00",
+  "tasks": [
+    {
+      "id": "task_1",
+      "title": "Analisis dan Baca File HTML",
+      "description": "Membaca konten file `.\\index.html`, mengekstrak struktur DOM lengkap, CSS yang tertanam (inline dan `<style>` tags), JavaScript yang tertanam (`<script>` tags), dan mengidentifikasi komponen-komponen utama seperti `<header>`, `<nav>`, `<main>`, `<footer>`, serta bagian konten yang dapat dipecah menjadi komponen lebih kecil. Menyimpan hasil analisis (parsed DOM, CSS, JS sebagai string/objek) ke shared context untuk digunakan oleh tugas-tugas berikutnya.",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 45,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083231+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "File HTML sumber yang akan dibaca dan dianalisis.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083197+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_2",
+      "title": "Buat Direktori Proyek Next.js Dasar",
+      "description": "Membuat struktur direktori dasar yang diperlukan untuk proyek Next.js di dalam direktori 'output', termasuk `src/app` untuk rute, `src/components` untuk komponen yang dapat digunakan kembali, `src/styles` untuk gaya global, dan `public` untuk aset statis.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 10,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083398+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/src/app",
+          "description": "Direktori untuk rute dan layout aplikasi Next.js.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083237+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/components",
+          "description": "Direktori untuk komponen React yang dapat digunakan kembali.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083241+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/styles",
+          "description": "Direktori untuk file CSS global atau modul CSS.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083243+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/public",
+          "description": "Direktori untuk aset statis seperti gambar, font, dan file lainnya.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083245+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_3",
+      "title": "Ekstraksi dan Konversi CSS Global ke globals.css",
+      "description": "Mengambil semua CSS global atau utama yang diidentifikasi dari `<style>` tag atau inline styles di `index.html` dan mengonversinya menjadi file CSS tunggal di `output/src/styles/globals.css`. Ini mencakup reset CSS, variabel, dan gaya dasar.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_2"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083423+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca data CSS yang diekstrak dari `index.html` dari shared context.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083409+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/styles/globals.css",
+          "description": "Membuat file CSS global untuk aplikasi Next.js.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083412+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_4",
+      "title": "Buat Komponen Layout Root Next.js (layout.tsx)",
+      "description": "Membuat komponen layout root Next.js dasar di `output/src/app/layout.tsx` yang akan membungkus semua halaman dan menyediakan struktur HTML dasar, termasuk impor `globals.css`.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_2",
+        "task_3"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 20,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083432+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/src/app/layout.tsx",
+          "description": "Membuat file layout utama untuk aplikasi Next.js.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083428+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_5",
+      "title": "Konversi Konten Utama ke page.tsx",
+      "description": "Mengambil bagian utama dari konten `<body>` `index.html` (diluar header, nav, footer yang akan menjadi komponen terpisah) dan mengonversinya menjadi JSX untuk `output/src/app/page.tsx`. Ini akan menjadi halaman utama aplikasi Next.js.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_4"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 45,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083441+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca bagian konten utama yang diekstrak dari `index.html` dari shared context.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083434+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/app/page.tsx",
+          "description": "Membuat file halaman utama (root page) untuk aplikasi Next.js.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083436+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_6",
+      "title": "Buat Direktori Komponen Header",
+      "description": "Membuat direktori khusus untuk komponen Header di `output/src/components/Header` untuk organisasi yang lebih baik.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_2"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 5,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083447+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Header",
+          "description": "Membuat direktori untuk komponen Header.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083443+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_7",
+      "title": "Ekstrak dan Buat Komponen Header (Header.tsx)",
+      "description": "Mengambil bagian `<header>` dari `index.html` dan mengonversinya menjadi komponen React TypeScript di `output/src/components/Header/Header.tsx`.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_6"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083455+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca struktur HTML untuk header yang diekstrak dari `index.html`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083449+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Header/Header.tsx",
+          "description": "Membuat file komponen React untuk Header.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083451+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_8",
+      "title": "Buat Modul CSS untuk Header (Header.module.css)",
+      "description": "Mengidentifikasi dan mengekstrak CSS yang spesifik untuk header dari `index.html` dan mengonversinya menjadi modul CSS di `output/src/components/Header/Header.module.css`.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_1",
+        "task_7"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 20,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083463+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca CSS yang spesifik untuk header yang diekstrak dari `index.html`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083458+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Header/Header.module.css",
+          "description": "Membuat file modul CSS untuk komponen Header.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083459+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_9",
+      "title": "Buat Direktori Komponen Navigasi",
+      "description": "Membuat direktori khusus untuk komponen Navigasi di `output/src/components/Navigation`.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_2"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 5,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083468+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Navigation",
+          "description": "Membuat direktori untuk komponen Navigasi.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083465+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_10",
+      "title": "Ekstrak dan Buat Komponen Navigasi (Navigation.tsx)",
+      "description": "Mengambil bagian `<nav>` dari `index.html` dan mengonversinya menjadi komponen React TypeScript di `output/src/components/Navigation/Navigation.tsx`.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_9"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083476+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca struktur HTML untuk navigasi yang diekstrak dari `index.html`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083470+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Navigation/Navigation.tsx",
+          "description": "Membuat file komponen React untuk Navigasi.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083472+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_11",
+      "title": "Buat Modul CSS untuk Navigasi (Navigation.module.css)",
+      "description": "Mengidentifikasi dan mengekstrak CSS yang spesifik untuk navigasi dari `index.html` dan mengonversinya menjadi modul CSS di `output/src/components/Navigation/Navigation.module.css`.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_1",
+        "task_10"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 20,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083484+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca CSS yang spesifik untuk navigasi yang diekstrak dari `index.html`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083478+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Navigation/Navigation.module.css",
+          "description": "Membuat file modul CSS untuk komponen Navigasi.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083481+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_12",
+      "title": "Buat Direktori Komponen Footer",
+      "description": "Membuat direktori khusus untuk komponen Footer di `output/src/components/Footer`.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_2"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 5,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083490+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Footer",
+          "description": "Membuat direktori untuk komponen Footer.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083486+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_13",
+      "title": "Ekstrak dan Buat Komponen Footer (Footer.tsx)",
+      "description": "Mengambil bagian `<footer>` dari `index.html` dan mengonversinya menjadi komponen React TypeScript di `output/src/components/Footer/Footer.tsx`.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_12"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083498+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca struktur HTML untuk footer yang diekstrak dari `index.html`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083492+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Footer/Footer.tsx",
+          "description": "Membuat file komponen React untuk Footer.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083494+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_14",
+      "title": "Buat Modul CSS untuk Footer (Footer.module.css)",
+      "description": "Mengidentifikasi dan mengekstrak CSS yang spesifik untuk footer dari `index.html` dan mengonversinya menjadi modul CSS di `output/src/components/Footer/Footer.module.css`.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_1",
+        "task_13"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 20,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083505+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca CSS yang spesifik untuk footer yang diekstrak dari `index.html`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083500+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/components/Footer/Footer.module.css",
+          "description": "Membuat file modul CSS untuk komponen Footer.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083501+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_15",
+      "title": "Integrasikan Komponen ke layout.tsx dan page.tsx",
+      "description": "Memodifikasi `output/src/app/layout.tsx` untuk mengimpor dan me-render komponen `Header`, `Navigation`, dan `Footer`. Serta memodifikasi `output/src/app/page.tsx` untuk memastikan kontennya sesuai dengan struktur layout dan menggunakan komponen yang relevan jika ada.",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_4",
+        "task_5",
+        "task_7",
+        "task_10",
+        "task_13"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083641+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Header/Header.tsx",
+          "description": "Membaca komponen Header untuk diimpor.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083507+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Navigation/Navigation.tsx",
+          "description": "Membaca komponen Navigasi untuk diimpor.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083509+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Footer/Footer.tsx",
+          "description": "Membaca komponen Footer untuk diimpor.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083510+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/app/layout.tsx",
+          "description": "Memodifikasi layout.tsx untuk mengimpor dan menggunakan komponen Header, Navigasi, dan Footer.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083512+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/app/page.tsx",
+          "description": "Memodifikasi page.tsx untuk menyesuaikan dengan struktur layout yang baru.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083514+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_16",
+      "title": "Buat Sub-Direktori Assets Publik",
+      "description": "Membuat sub-direktori dalam `output/public` untuk mengelola berbagai jenis aset seperti gambar (`images`) dan font (`fonts`).",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_2"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 5,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083776+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/public/images",
+          "description": "Membuat direktori untuk menyimpan file gambar.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083650+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/public/fonts",
+          "description": "Membuat direktori untuk menyimpan file font.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083653+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_17",
+      "title": "Migrasi dan Perbarui Path untuk 'logo.png'",
+      "description": "Mengidentifikasi gambar 'logo.png' yang digunakan di `index.html` (misalnya di `<header>`), menyalinnya ke `output/public/images/logo.png`, dan memperbarui semua referensi path gambar tersebut di komponen React atau CSS yang relevan.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_16",
+        "task_7",
+        "task_8",
+        "task_15"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 25,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083795+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\logo.png",
+          "description": "Membaca file gambar logo.png dari direktori input atau sumber asli.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083781+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/public/images/logo.png",
+          "description": "Menyalin file gambar logo.png ke direktori aset publik.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083783+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/components/Header/Header.tsx",
+          "description": "Memperbarui path gambar logo.png di komponen Header.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083786+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/components/Header/Header.module.css",
+          "description": "Memperbarui path gambar logo.png di CSS modul Header (jika digunakan sebagai background).",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083787+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_18",
+      "title": "Migrasi dan Perbarui Path untuk 'background.jpg'",
+      "description": "Mengidentifikasi gambar 'background.jpg' yang digunakan di `index.html` (misalnya di `<body>` atau `<main>`), menyalinnya ke `output/public/images/background.jpg`, dan memperbarui semua referensi path gambar tersebut di komponen React atau CSS yang relevan.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_1",
+        "task_16",
+        "task_3",
+        "task_5",
+        "task_15"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 25,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083808+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\background.jpg",
+          "description": "Membaca file gambar background.jpg dari direktori input atau sumber asli.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083797+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/public/images/background.jpg",
+          "description": "Menyalin file gambar background.jpg ke direktori aset publik.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083799+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/styles/globals.css",
+          "description": "Memperbarui path gambar background.jpg di CSS global (jika digunakan sebagai background body/html).",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083801+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/app/page.tsx",
+          "description": "Memperbarui path gambar background.jpg di komponen Page (jika digunakan sebagai inline style atau di elemen main).",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083803+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_19",
+      "title": "Migrasi dan Perbarui Path untuk 'custom-font.woff2'",
+      "description": "Mengidentifikasi file font 'custom-font.woff2' yang digunakan di `index.html`, menyalinnya ke `output/public/fonts/custom-font.woff2`, dan memperbarui semua referensi path font tersebut di CSS global (`globals.css`).",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_1",
+        "task_16",
+        "task_3"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 20,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083818+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\custom-font.woff2",
+          "description": "Membaca file font custom-font.woff2 dari direktori input atau sumber asli.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083810+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/public/fonts/custom-font.woff2",
+          "description": "Menyalin file font custom-font.woff2 ke direktori aset publik.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083812+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/styles/globals.css",
+          "description": "Memperbarui path font custom-font.woff2 di CSS global.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083814+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_20",
+      "title": "Pembersihan CSS Inline & Style Tags",
+      "description": "Melakukan iterasi pada semua komponen yang telah dikonversi (`page.tsx`, `Header.tsx`, dll.) dan file CSS modul (`Header.module.css`, dll.), menghapus gaya inline yang tersisa atau `<style>` tag, dan memastikan semua gaya telah dimigrasikan dengan benar ke `globals.css` atau modul CSS yang sesuai.",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_5",
+        "task_7",
+        "task_8",
+        "task_10",
+        "task_11",
+        "task_13",
+        "task_14"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 40,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083944+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./output/src/app/page.tsx",
+          "description": "Membaca file page.tsx untuk pembersihan gaya.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083820+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Header/Header.tsx",
+          "description": "Membaca file Header.tsx untuk pembersihan gaya.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083822+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Navigation/Navigation.tsx",
+          "description": "Membaca file Navigation.tsx untuk pembersihan gaya.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083824+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Footer/Footer.tsx",
+          "description": "Membaca file Footer.tsx untuk pembersihan gaya.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083825+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/app/page.tsx",
+          "description": "Menghapus gaya inline atau sisa <style> tag dari page.tsx.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083827+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/components/Header/Header.tsx",
+          "description": "Menghapus gaya inline atau sisa <style> tag dari Header.tsx.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083829+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/components/Navigation/Navigation.tsx",
+          "description": "Menghapus gaya inline atau sisa <style> tag dari Navigation.tsx.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083831+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/components/Footer/Footer.tsx",
+          "description": "Menghapus gaya inline atau sisa <style> tag dari Footer.tsx.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083833+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/styles/globals.css",
+          "description": "Menambahkan gaya yang dipindahkan dari komponen ke globals.css jika diperlukan.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083834+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_21",
+      "title": "Konversi JavaScript Tertanam ke Kode Next.js/React",
+      "description": "Mengidentifikasi dan mengekstrak semua JavaScript yang tertanam dalam `<script>` tag di `index.html`. Mengonversi logika JavaScript tersebut menjadi fungsi React, hooks (misalnya `useState`, `useEffect`), atau utilitas TypeScript terpisah di `output/src/utils/client-scripts.ts` (jika bersifat umum) atau mengintegrasikannya langsung ke dalam komponen yang relevan.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_5",
+        "task_7",
+        "task_10",
+        "task_13"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 60,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083970+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "shared_context",
+          "description": "Membaca JavaScript yang diekstrak dari `index.html` dari shared context.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083953+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/src/utils/client-scripts.ts",
+          "description": "Membuat file utilitas TypeScript untuk fungsi JavaScript yang umum.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083956+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/app/page.tsx",
+          "description": "Mengintegrasikan logika JS ke dalam komponen Page (jika relevan).",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083958+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./output/src/components/Header/Header.tsx",
+          "description": "Mengintegrasikan logika JS ke dalam komponen Header (jika relevan).",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083960+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_22",
+      "title": "Review Akhir dan Refaktorisasi Kode",
+      "description": "Melakukan peninjauan menyeluruh terhadap semua kode yang dihasilkan dan dimodifikasi untuk memastikan kepatuhan terhadap praktik terbaik Next.js dan React, keterbacaan, kinerja, dan penanganan kesalahan. Refaktorisasi jika diperlukan untuk meningkatkan kualitas kode.",
+      "type": "review",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_21"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 60,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083992+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./output/src/app/layout.tsx",
+          "description": "Membaca file layout.tsx untuk review.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083972+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/app/page.tsx",
+          "description": "Membaca file page.tsx untuk review.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083975+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Header/Header.tsx",
+          "description": "Membaca komponen Header untuk review.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083977+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Navigation/Navigation.tsx",
+          "description": "Membaca komponen Navigasi untuk review.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083979+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/components/Footer/Footer.tsx",
+          "description": "Membaca komponen Footer untuk review.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083982+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/styles/globals.css",
+          "description": "Membaca file globals.css untuk review.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083984+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./output/src/utils/client-scripts.ts",
+          "description": "Membaca file client-scripts.ts untuk review.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083986+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_23",
+      "title": "Uji Coba Fungsional Dasar Aplikasi",
+      "description": "Melakukan pengujian fungsional dasar pada aplikasi Next.js yang telah dikonversi untuk memastikan semua komponen dirender dengan benar, navigasi berfungsi, dan interaksi JavaScript dasar berjalan seperti yang diharapkan.",
+      "type": "testing",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_22"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 45,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.083998+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "execute",
+          "file_path": "npm run dev",
+          "description": "Menjalankan server pengembangan Next.js untuk pengujian visual dan fungsional.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.083994+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "1762637890084_5745233f",
+      "title": "Read and analyze HTML file",
+      "description": "Read the HTML file and extract structure, scripts, and styles",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 10,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.084473+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Source HTML file to analyze",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.084468+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "1762637890084_dbb800ea",
+      "title": "Generate Next.js component structure",
+      "description": "Create TypeScript React component files with proper structure",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T21:38:10.084484+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/components/Header.tsx",
+          "description": "Header component",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.084479+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/components/Main.tsx",
+          "description": "Main content component",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.084480+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/page.tsx",
+          "description": "Next.js main page",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T21:38:10.084482+00:00",
+          "completed_at": null
+        }
+      ]
+    }
+  ],
+  "current_task_index": 0,
+  "goals": [
+    "Mengonversi index.html menjadi komponen Next.js yang berfungsi penuh",
+    "Mengatur struktur proyek Next.js yang bersih dan terorganisir",
+    "Memisahkan HTML, CSS, dan JavaScript ke dalam komponen React yang sesuai",
+    "Menangani assets (gambar, font) dengan benar di lingkungan Next.js",
+    "Memastikan kode yang dihasilkan bersih, mudah dipelihara, dan sesuai standar Next.js/React"
+  ],
+  "status": "active",
+  "progress": {
+    "total": 25,
+    "completed": 0,
+    "failed": 0,
+    "in_progress": 0,
+    "pending": 25
+  },
+  "file_operations": [],
+  "output_list": [],
+  "audit_log": []
+}

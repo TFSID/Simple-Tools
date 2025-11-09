@@ -1,0 +1,78 @@
+css
+/* src/components/Navigation.module.css */
+
+.navigation {
+  display: flex;
+  align-items: center;
+  /* Adjust justify-content based on parent layout, e.g., flex-end for a header */
+}
+
+.navList {
+  display: flex;
+  list-style: none; /* Removes default list bullets */
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  gap: 1.5rem; /* Spacing between navigation items */
+}
+
+.navItem {
+  /* Styles specific to individual list items, if any.
+     Often the link itself carries the main styling. */
+}
+
+.navLink {
+  text-decoration: none; /* Removes default underline from links */
+  color: var(--text-color, #333); /* Uses global text color, falls back to #333 */
+  font-weight: 500;
+  padding: 0.5rem 0; /* Vertical padding for better clickable area */
+  position: relative; /* Required for the underline effect */
+  transition: color 0.3s ease, font-weight 0.3s ease;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.navLink:hover {
+  color: var(--primary-color, #007bff); /* Changes color on hover */
+}
+
+/* Underline effect on hover and for active links */
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0; /* Positions the underline at the bottom of the link */
+  width: 0; /* Starts with no width */
+  height: 2px;
+  background-color: var(--primary-color, #007bff);
+  transition: width 0.3s ease-in-out; /* Smooth transition for width change */
+}
+
+.navLink:hover::after,
+.navLink.active::after {
+  width: 100%; /* Expands to full width on hover or if active */
+}
+
+/* Styles for the currently active link */
+.navLink.active {
+  color: var(--primary-color, #007bff);
+  font-weight: 600;
+}
+
+/* Responsive adjustments for smaller screens (e.g., mobile) */
+@media (max-width: 768px) {
+  .navigation {
+    width: 100%; /* Takes full width on small screens */
+    justify-content: center; /* Centers the navigation horizontally */
+  }
+
+  .navList {
+    flex-direction: column; /* Stacks navigation items vertically */
+    align-items: center; /* Centers items horizontally when stacked */
+    gap: 0.75rem; /* Adjusts vertical spacing */
+  }
+
+  .navLink {
+    padding: 0.75rem 1.5rem; /* Larger padding for easier touch interaction */
+    display: block; /* Makes links take full available width when stacked */
+    text-align: center; /* Centers the text within the block link */
+  }
+}

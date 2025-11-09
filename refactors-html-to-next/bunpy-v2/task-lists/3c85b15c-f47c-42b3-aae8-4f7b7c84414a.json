@@ -1,0 +1,29 @@
+{
+  "id": "3c85b15c-f47c-42b3-aae8-4f7b7c84414a",
+  "title": "Convert HTML file to Next.js components: index.html",
+  "description": "This comprehensive task list outlines the process of converting a static HTML file (index.html) into a functional Next.js application using TypeScript. It includes setting up a Next.js project, parsing the HTML, converting it to JSX components, extracting and integrating styles, handling assets, and refactoring into reusable components, followed by review and testing.",
+  "created_at": "2025-11-08T19:22:09.296074+00:00",
+  "tasks": [
+    {
+      "id": "task_1",
+      "title": "Initialize Next.js Project",
+      "description": "Create a new Next.js project using `create-next-app` with TypeScript in a session-specific output directory. This sets up the foundational structure for the conversion.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 10,
+      "actual_time": null,
+      "created_at": "2025-11-08T19:22:09.295930+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/3c85b15c-f47c-42b3-aae8-4f7b7c84414a/my-next-app/",
+          "description": "Root directory for the new Next.js project. This will contain all generated project files.",
+          "priority": 

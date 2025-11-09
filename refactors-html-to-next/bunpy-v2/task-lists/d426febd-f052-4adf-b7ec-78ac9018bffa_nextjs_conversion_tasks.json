@@ -1,0 +1,687 @@
+{
+  "id": "d426febd-f052-4adf-b7ec-78ac9018bffa_nextjs_conversion_tasks",
+  "title": "Convert index.html to Next.js Components",
+  "description": "Comprehensive task list to convert a static HTML file (index.html) into a functional Next.js application using TypeScript. This involves setting up a Next.js project, migrating HTML structure to JSX components, extracting and integrating styles, converting JavaScript logic, and handling static assets.",
+  "created_at": "2025-11-08T20:45:36.776932+00:00",
+  "tasks": [
+    {
+      "id": "task_1",
+      "title": "Setup Next.js Project",
+      "description": "Initialize a new Next.js project with the App Router, TypeScript, ESLint, Prettier, and Tailwind CSS configurations. This creates the foundational directory structure and configuration files for the application.",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 15,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776762+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "execute",
+          "file_path": "npx create-next-app@latest my-nextjs-app --ts --eslint --app --tailwind --src-dir --import-alias \"@/*\"",
+          "description": "Executes the `create-next-app` command to generate a new Next.js project named 'my-nextjs-app' with TypeScript, ESLint, App Router, Tailwind CSS, a `src` directory, and path aliases. The project will be created in a new subdirectory `my-nextjs-app`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776727+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/",
+          "description": "Creates the `my-nextjs-app` directory along with the default Next.js project structure, including `src/app`, `public`, `styles`, `tsconfig.json`, `package.json`, etc.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776739+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_2",
+      "title": "Analyze Source HTML Structure and Dependencies",
+      "description": "Read the input `index.html` file to thoroughly understand its document structure, identify main content sections, existing inline styles, internal `<style>` blocks, external `<link rel='stylesheet'>` tags, `<script>` tags, and all static asset references (images, fonts, videos, etc.). This detailed analysis is crucial for planning the conversion.",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 15,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776772+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Reads the source `index.html` file to extract its entire content and analyze its DOM structure.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776765+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_3",
+      "title": "Migrate Head Elements and Metadata",
+      "description": "Extract `<title>`, `<meta>` tags (e.g., charset, viewport, description, social media meta), and `<link>` tags (e.g., favicons, web manifests, preloads) from the HTML `<head>` section. Integrate these into the Next.js App Router's `src/app/layout.tsx` file using the `metadata` export for SEO and general document configuration.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1",
+        "task_2"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 20,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776827+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Reads the `<head>` section of the HTML file to identify metadata.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776804+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/app/layout.tsx",
+          "description": "Updates the `layout.tsx` file with the extracted metadata, title, and other head elements using Next.js's metadata API.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776815+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_4",
+      "title": "Extract and Integrate Global Stylesheets",
+      "description": "Identify all global CSS definitions from inline styles, `<style>` blocks, and external `<link rel='stylesheet'>` tags (excluding component-specific styles). Consolidate and migrate these global styles into `./my-nextjs-app/src/app/globals.css`. Remove any `<link>` tags for these global styles from the HTML output after migration.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_2"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 40,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776840+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Reads the HTML file to extract global style definitions.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776830+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/src/app/globals.css",
+          "description": "Creates or modifies the Next.js global CSS file, populating it with extracted global styles. Existing content (Tailwind imports) should be preserved.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776833+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/app/layout.tsx",
+          "description": "Ensures `src/app/globals.css` is correctly imported and applied in the root layout.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776835+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_5",
+      "title": "Convert HTML Body to Initial JSX Page Component",
+      "description": "Translate the core content within the `<body>` tag of `index.html` into a basic JSX structure within `./my-nextjs-app/src/app/page.tsx`. This involves converting HTML tags to their JSX equivalents (e.g., `class` to `className`, `for` to `htmlFor`), handling inline styles by converting them to JavaScript style objects, and ensuring proper nesting.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_2",
+        "task_4"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 75,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776848+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Reads the `<body>` content of the HTML file.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776842+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/src/app/page.tsx",
+          "description": "Creates the main `page.tsx` component, populated with the initial converted JSX structure. This will serve as the starting point for componentization.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776844+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_6",
+      "title": "Extract and Componentize Reusable UI Blocks",
+      "description": "Analyze the JSX content in `./my-nextjs-app/src/app/page.tsx` to identify logical, reusable UI components (e.g., header, footer, navigation bars, cards, forms, specific sections). Extract these blocks into separate TypeScript React components within the `./my-nextjs-app/src/components` directory. Replace the extracted JSX in `page.tsx` with imports of these new components.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_5"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 90,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776864+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./my-nextjs-app/src/app/page.tsx",
+          "description": "Reads the initial JSX structure to identify and extract component candidates.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776851+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/src/components/Header.tsx",
+          "description": "Example: Creates a `Header` component file.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776853+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/src/components/Footer.tsx",
+          "description": "Example: Creates a `Footer` component file.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776855+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/src/components/CardSection.tsx",
+          "description": "Example: Creates a `CardSection` component file if applicable.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776856+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/app/page.tsx",
+          "description": "Refactors `page.tsx` to import and render the newly created components, making the page structure cleaner.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776858+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_7",
+      "title": "Migrate JavaScript Logic and Dynamic Functionality",
+      "description": "Review all `<script>` tags (internal and external) and any inline JavaScript event handlers in the original `index.html`. Convert this client-side JavaScript logic into React hooks (`useEffect`, `useState`), event handlers (`onClick`, `onChange`), or separate utility functions/modules in TypeScript within the relevant Next.js components or `src/lib` directory. Use `next/script` for third-party scripts that cannot be directly converted.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "medium",
+      "dependencies": [
+        "task_2",
+        "task_6"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 60,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776877+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Reads the HTML file to identify all JavaScript code snippets and script dependencies.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776866+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/app/page.tsx",
+          "description": "Integrates page-level JavaScript logic into the main page component using React hooks or handlers.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776868+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/components/Header.tsx",
+          "description": "Modifies relevant component files to include event handlers, state management, or custom hooks.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776870+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/src/lib/utils.ts",
+          "description": "Creates a utility file for shared JavaScript functions or complex logic extracted from the HTML.",
+          "priority": "low",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776872+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_8",
+      "title": "Migrate Static Assets and Optimize Images",
+      "description": "Copy all static assets referenced in `index.html` (images, fonts, videos, favicons, etc.) from their original location to the `./my-nextjs-app/public` directory. Update all asset paths in JSX components and CSS files to correctly point to the new `/` root-relative paths for public assets. Utilize the `next/image` component for all migrated images to leverage Next.js's built-in image optimization capabilities.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_5",
+        "task_6",
+        "task_7"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 45,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776893+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Reads the HTML file to identify all asset references (e.g., `src` in `img` tags, `url()` in CSS).",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776879+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/public/images/",
+          "description": "Creates an `images` subdirectory within `public` and copies all image files into it.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776881+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./my-nextjs-app/public/fonts/",
+          "description": "Creates a `fonts` subdirectory within `public` and copies all font files into it.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776883+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/app/page.tsx",
+          "description": "Updates image `src` paths and converts `<img>` tags to `Image` components from `next/image`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776884+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/components/**/*.tsx",
+          "description": "Updates asset paths in all component files (e.g., `src/components/Header.tsx`).",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776886+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/src/app/globals.css",
+          "description": "Updates asset paths (e.g., `background-image` URLs) in the global CSS file.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776888+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_9",
+      "title": "Review, Lint, and Format Converted Code",
+      "description": "Conduct a thorough code review of all newly created and modified TypeScript/JSX, CSS, and other configuration files. Ensure adherence to Next.js and React best practices, fix any remaining syntax errors or TypeScript type issues. Apply ESLint autofixes and format all relevant files using Prettier to maintain consistent code style across the project.",
+      "type": "review",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_7",
+        "task_8"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 40,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776909+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./my-nextjs-app/src/**/*.tsx",
+          "description": "Reads all TypeScript/JSX components and pages for manual review and automated linting.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776895+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./my-nextjs-app/src/**/*.ts",
+          "description": "Reads all TypeScript utility files for manual review and automated linting.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776897+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./my-nextjs-app/src/**/*.css",
+          "description": "Reads all CSS files for style consistency and potential issues.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776899+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "execute",
+          "file_path": "cd ./my-nextjs-app && npm run lint -- --fix",
+          "description": "Executes ESLint with the `--fix` option to automatically resolve detected linting issues in the project.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776900+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "execute",
+          "file_path": "cd ./my-nextjs-app && npx prettier --write .",
+          "description": "Executes Prettier to format all supported files in the project for consistent code style.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776902+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./my-nextjs-app/**/*",
+          "description": "Modifies various files throughout the `my-nextjs-app` directory based on linting and formatting results.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776904+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_10",
+      "title": "Local Development Server Testing and Visual Verification",
+      "description": "Start the Next.js development server and open the application in a web browser. Perform a thorough visual inspection to verify the layout, responsiveness, and accurate application of all styles. Test any migrated dynamic functionality or interactive elements. Monitor the browser console and server logs for any runtime errors or warnings.",
+      "type": "testing",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_9"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 25,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.776914+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "execute",
+          "file_path": "cd ./my-nextjs-app && npm run dev",
+          "description": "Starts the Next.js development server, making the application accessible for local testing in a web browser.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.776911+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "1762634736777_b966ebad",
+      "title": "Read and analyze HTML file",
+      "description": "Read the HTML file and extract structure, scripts, and styles",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 10,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.777388+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Source HTML file to analyze",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.777381+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "1762634736777_0b0ad398",
+      "title": "Generate Next.js component structure",
+      "description": "Create TypeScript React component files with proper structure",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:45:36.777402+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/components/Header.tsx",
+          "description": "Header component",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.777396+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/components/Main.tsx",
+          "description": "Main content component",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.777398+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/page.tsx",
+          "description": "Next.js main page",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:45:36.777399+00:00",
+          "completed_at": null
+        }
+      ]
+    }
+  ],
+  "current_task_index": 0,
+  "goals": [
+    "Successfully convert `index.html` to a functional Next.js application",
+    "Migrate all HTML structure to JSX with TypeScript, following React/Next.js conventions",
+    "Properly extract and integrate all CSS styles into the Next.js project's styling system",
+    "Convert and integrate JavaScript logic into React components or utility modules",
+    "Migrate all static assets (images, fonts, etc.) and optimize images using `next/image`",
+    "Ensure the converted application is visually identical or functionally equivalent to the original HTML page",
+    "Produce clean, maintainable, and well-formatted Next.js TypeScript code"
+  ],
+  "status": "active",
+  "progress": {
+    "total": 12,
+    "completed": 0,
+    "failed": 0,
+    "in_progress": 0,
+    "pending": 12
+  },
+  "file_operations": [],
+  "output_list": [],
+  "audit_log": []
+}

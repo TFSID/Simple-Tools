@@ -1,0 +1,73 @@
+bash
+#!/bin/bash
+# Filename: setup-next-project.sh
+# Description: This script sets up a new Next.js project using 'create-next-app'.
+# It checks for necessary dependencies (Node.js, npm) and prompts the user for
+# a project name before executing the Next.js project creation command interactively.
+
+# Function to handle errors and exit gracefully
+handle_error() {
+    echo "Error: $1" >&2
+    exit 1
+}
+
+# --- Dependency Checks ---
+# Check if Node.js is installed
+if ! command -v node &> /dev/null; then
+    handle_error "Node.js is not installed. Please install Node.js (https://nodejs.org/) to proceed."
+fi
+
+# Check if npm (Node Package Manager) is installed
+if ! command -v npm &> /dev_null; then
+    handle_error "npm is not installed. Please install npm (it's included with Node.js) to proceed."
+fi
+
+# --- Project Name Input ---
+DEFAULT_PROJECT_NAME="my-next-app"
+PROJECT_NAME=""
+
+# Loop until a valid project name is provided by the user
+while [ -z "$PROJECT_NAME" ]; do
+    read -p "Enter your Next.js project name (default: $DEFAULT_PROJECT_NAME): " user_input_project_name
+    
+    # Use default name if user input is empty
+    if [ -n "$user_input_project_name" ]; then
+        PROJECT_NAME="$user_input_project_name"
+    else
+        PROJECT_NAME="$DEFAULT_PROJECT_NAME"
+        echo "No project name entered. Using default: '$DEFAULT_PROJECT_NAME'"
+    fi
+
+    # Basic validation for the project name to prevent common issues
+    # Project name should not contain spaces and should use valid directory characters.
+    if [[ "$PROJECT_NAME" =~ [[:space:]] ]]; then
+        echo "Error: Project name cannot contain spaces. Please try again."
+        PROJECT_NAME="" # Reset to prompt again
+    elif [[ "$PROJECT_NAME" =~ [^a-zA-Z0-9._-] ]]; then
+        echo "Error: Project name contains invalid characters. Use letters, numbers, dots, underscores, or hyphens."
+        PROJECT_NAME="" # Reset to prompt again
+    fi
+done
+
+echo "Attempting to create a new Next.js project named '$PROJECT_NAME'..."
+
+# --- Execute create-next-app ---
+# The 'npx create-next-app' command will run interactively.
+# This allows the user to choose configurations like TypeScript, ESLint,
+# Tailwind CSS, App Router, etc., directly from the Next.js CLI.
+# This approach provides a flexible and modern way to establish the
+# foundational directory structure tailored to user preferences.
+npx create-next-app "$PROJECT_NAME" || handle_error "Failed to create Next.js project '$PROJECT_NAME'."
+
+echo ""
+echo "---------------------------------------------------------"
+echo "Next.js project '$PROJECT_NAME' has been successfully created!"
+echo "To get started:"
+echo "1. Navigate into your new project directory:"
+echo "   cd $PROJECT_NAME"
+echo "2. Run the development server:"
+echo "   npm run dev"
+echo "---------------------------------------------------------"
+echo ""
+
+exit 0

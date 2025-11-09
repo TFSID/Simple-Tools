@@ -1,0 +1,877 @@
+/* === RESPONSIVE DESIGN (Media Queries)   === */
+
+/* Untuk layar PC / Desktop (Large devices) */
+@media (min-width: 993px) {
+    nav ul {
+        display: flex;
+    }
+    .hamburger-menu {
+        display: none;
+    }
+    body {
+        background-attachment: fixed;
+    }
+    header {
+        position: absolute;
+    }
+    header.scrolled {
+        position: fixed;
+    }
+    .social-icons {
+        display: flex;
+    }
+    .lang-mode-toggles {
+        order: unset;
+        margin-left: 20px;
+    }
+}
+
+
+/* Untuk layar Tablet (Medium devices) */
+@media (max-width: 992px) {
+    .container {
+        padding: 15px;
+    }
+
+    nav {
+        padding: 0 15px;
+    }
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        /* background-color: rgba(15, 80, 166, 0.95); */
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 15px 0;
+        text-align: center;
+        /* box-shadow: 0 5px 10px rgba(0,0,0,0.3); */
+        /* border-top: 1 px solid rgba(255,255,255,0.2); */
+        transition: transform 0.3s ease-out;
+        transform: translateY(-100%);
+    }
+    nav ul.active {
+        display: flex;
+        transform: translateY(0);
+    }
+    nav ul li {
+        margin: 8px 0;
+    }
+    nav ul li a {
+        font-size: 1.05em;
+        padding: 6px 0;
+    }
+
+    .hamburger-menu {
+        display: block;
+        order: 4;
+        margin-left: auto;
+    }
+    nav .social-icons {
+        order: 2;
+        margin-left: 10px;
+        margin-right: auto;
+    }
+    .lang-mode-toggles { /* Hanya Dark Mode */
+        order: 3;
+        width: auto;
+        justify-content: flex-end;
+        margin-top: 0;
+        margin-left: 10px;
+    }
+    nav .logo {
+        order: 1;
+    }
+
+
+    .homepage-section {
+        min-height: 70vh;
+    }
+    .hero-content h1 {
+        font-size: 2.8em;
+    }
+    .hero-content h2 {
+        font-size: 2.2em;
+    }
+    .hero-content p {
+        font-size: 1.1em;
+    }
+    .homepage-section:nth-child(2) .hero-content {
+        margin-left: 5%;
+    }
+
+    .call-to-action h2, .social-media-promo h2 {
+        font-size: 2.2em;
+    }
+    .large-social-icons a {
+        font-size: 40px;
+        margin: 0 15px;
+    }
+    .large-social-icons::before {
+        width: 80%;
+        max-width: 400px;
+        height: 100px;
+    }
+
+    .content-section, .contact-section, .partners-section {
+        padding: 30px;
+    }
+    .content-section h2 {
+        font-size: 1.8em;
+    }
+    .content-section h3 {
+        font-size: 1.4em;
+    }
+
+    /* Perbaikan Responsivitas Proyek Grid untuk Tablet */
+    .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Atur agar cenderung 2 kolom */
+        gap: 20px; /* Kurangi jarak */
+        justify-content: center; /* Pusatkan item jika tidak memenuhi baris */
+    }
+
+    .mascot-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .mascot-info .text-content, .mascot-info .image-content {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .logo-display {
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    footer .footer-section {
+        flex-basis: 45%;
+        min-width: unset;
+    }
+
+    body {
+        background-attachment: scroll;
+    }
+
+    /* RESPONSIVE DESIGN FOR TESTIMONIAL SLIDER */
+    .testimonial-slider-container {
+        padding: 0 10px;
+    }
+    .testimonial-item {
+        flex: 0 0 100%; /* FIX: Testimonial items should take full width on tablet vertical, to avoid squishing */
+        max-width: 100%;
+        margin: 5px auto; /* Centered with margin auto */
+    }
+
+    /* RESPONSIVE FOR CHAT POPUP */
+    .aria-chat-popup-container {
+        bottom: 20px;
+        right: 15px; /* Sesuaikan posisi kanan */
+    }
+    .aria-chat-icon {
+        width: 50px;
+        height: 50px;
+    }
+    .chat-notification {
+        font-size: 0.6em;
+        padding: 3px 6px;
+    }
+    .aria-chat-box {
+        width: calc(100vw - 30px); /* Lebih kecil */
+        height: 320px; /* Lebih pendek */
+        bottom: 60px; /* Sesuaikan posisi */
+        right: 0;
+        left: auto;
+        margin-right: 15px; /* Sesuaikan margin agar tidak menempel pinggir */
+    }
+}
+
+/* Untuk layar Mobile (Small devices) */
+@media (max-width: 767px) {
+    .container {
+        padding: 10px;
+    }
+
+    /* Navbar Mobile */
+    nav {
+        padding: 0 5px; /* Padding navbar lebih kecil */
+        position: relative;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav .logo img {
+        height: 30px; /* Logo lebih kecil */
+    }
+    nav .logo span {
+        display: none;
+    }
+    /* FIX: Ukuran font menu navbar mobile */
+    nav ul {
+        top: 50px; /* Turunkan sedikit */
+        padding: 10px 0;
+    }
+    nav ul li a {
+        font-size: 0.9em; /* Font menu lebih kecil */
+    }
+
+    /* Adjust order for mobile layout of header items */
+    nav .logo { order: 1; margin-right: 0; }
+    .lang-mode-toggles { /* Sekarang hanya Dark Mode */
+        order: 2;
+        margin-left: auto;
+        gap: 5px; /* Jarak antar toggle lebih kecil */
+    }
+    .social-icons { display: none; }
+    .hamburger-menu { order: 3; margin-left: 10px; } /* Hamburger lebih dekat */
+
+    .dark-mode-toggle { /* Hanya satu toggle */
+        font-size: 0.75em; /* Font toggle lebih kecil */
+        padding: 4px 6px; /* Padding toggle lebih kecil */
+        border-radius: 12px;
+    }
+    .dark-mode-toggle i {
+        font-size: 0.8em;
+    }
+
+
+    /* Homepage Sections Mobile */
+    .homepage-section {
+        min-height: 60vh; /* Sedikit mengurangi tinggi untuk mobile agar konten utama lebih cepat terlihat */
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 30px 10px; /* Padding horizontal lebih ketat */
+    }
+    .hero-content h1 {
+        font-size: 1.6em; /* Font size h1 di homepage lebih kecil untuk iPhone SE */
+        line-height: 1.1; /* Menyesuaikan line height agar tidak terlalu rapat */
+        word-break: break-word; /* Memastikan teks bisa pecah baris di mana saja jika terlalu panjang */
+        hyphens: auto; /* Mengizinkan hyphenation jika didukung browser */
+    }
+    .hero-content h2 {
+        font-size: 1.2em; /* Font size h2 di homepage lebih kecil untuk iPhone SE */
+        line-height: 1.3; /* Menyesuaikan line height */
+        word-break: break-word;
+        hyphens: auto;
+    }
+    .hero-content p {
+        font-size: 0.9em; /* Font size p lebih kecil */
+    }
+    .btn-primary, .btn-secondary {
+        padding: 8px 15px; /* Tombol lebih kecil */
+        font-size: 0.85em;
+        margin: 5px;
+    }
+    .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .homepage-section:nth-child(2) {
+        justify-content: center;
+        text-align: center;
+    }
+    .homepage-section:nth-child(2) .hero-content {
+        margin-left: 0;
+        max-width: 95%; /* Maks lebar ditingkatkan sedikit */
+    }
+
+    /* Targetkan judul halaman proyek di homepage agar selalu di tengah */
+    .projects-page-title {
+        padding: 5px 0;
+    }
+    .projects-page-title::before {
+        width: 30px;
+        height: 30px;
+        filter: blur(3px); /* Blur lebih kecil */
+    }
+
+    /* Call to Action & Social Media Promo Mobile */
+    .call-to-action h2, .social-media-promo h2 {
+        font-size: 1.4em; /* Lebih kecil untuk mobile */
+    }
+    .large-social-icons a {
+        font-size: 25px; /* Lebih kecil untuk mobile */
+        margin: 0 6px; /* Mengurangi jarak antar ikon */
+        padding: 10px;
+    }
+    .large-social-icons::before {
+        height: 60px; /* Tinggi disesuaikan */
+        border-radius: 8px;
+    }
+
+    /* Content Sections Mobile */
+    .content-section {
+        padding: 15px; /* Padding konten lebih kecil */
+    }
+    .content-section h2 {
+        font-size: 1.3em;
+    }
+    .content-section h3 {
+        font-size: 1.0em;
+    }
+    .content-section ul li {
+        padding-left: 15px;
+    }
+    .content-section ul li::before {
+        font-size: 0.9em;
+    }
+
+    /* Perbaikan Responsivitas Proyek Grid untuk Mobile */
+    .projects-grid {
+        grid-template-columns: 1fr; /* Paksa 1 kolom di mobile */
+        gap: 15px;
+    }
+    .project-card {
+        padding: 15px;
+    }
+    .project-card.maskot-card::before {
+        width: 80px;
+        height: 80px;
+        bottom: -20px;
+    }
+
+    .partners-section {
+        padding: 20px 10px;
+    }
+    .partners-grid, .collaboration-grid {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); /* Ukuran logo partner lebih kecil */
+        gap: 8px; /* Jarak antar logo lebih kecil */
+    }
+    .partner-logo {
+        height: 60px; /* Sesuaikan tinggi untuk mobile */
+        padding: 4px; /* Sesuaikan padding untuk mobile */
+    }
+    .partner-logo img {
+        max-width: 70px;
+        max-height: 40px;
+    }
+    .partner-logo span {
+        font-size: 0.8em;
+    }
+
+    .contact-info, .contact-form-container {
+        min-width: unset;
+        width: 100%;
+    }
+    .contact-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .gallery-grid, .portal-gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Ukuran galeri lebih kecil */
+        gap: 8px; /* Jarak antar logo lebih kecil */
+    }
+    .gallery-item img, .portal-gallery-item img {
+        height: 80px;
+    }
+
+    /* Footer Mobile */
+    footer .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    footer .footer-section {
+        margin: 10px 0;
+        width: 95%;
+    }
+    footer .footer-section h4 {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    /* RESPONSIVE DESIGN FOR TESTIMONIAL SLIDER */
+    .testimonial-slider-container {
+        padding: 0 5px;
+    }
+    .testimonial-item {
+        margin: 5px auto;
+    }
+    .testimonial-item p {
+        font-size: 0.9em;
+    }
+    .testimonial-item h4 {
+        font-size: 1em;
+    }
+    .testimonial-item span {
+        font-size: 0.8em;
+    }
+    .slider-button {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9em;
+    }
+    .slider-dots {
+        margin-top: 10px;
+    }
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+
+
+    /* Responsive adjustments for portal search bar */
+    .portal-search-bar {
+        margin: 10px auto 20px auto;
+    }
+    .portal-search-bar input[type="text"] {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+    .portal-search-bar button {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* FIX: Media query sangat kecil (contoh untuk iPhone SE, Galaxy S kecil) */
+@media (max-width: 420px) {
+    .homepage-section {
+        min-height: 50vh; /* Sesuaikan tinggi agar konten terlihat lebih banyak */
+        padding: 20px 10px; /* Padding lebih ketat */
+    }
+    .hero-content h1 {
+        font-size: 1.4em; /* Lebih kecil lagi */
+        line-height: 1.1;
+    }
+    .hero-content h2 {
+        font-size: 1.0em; /* Lebih kecil lagi */
+        line-height: 1.2;
+    }
+    .hero-content p {
+        font-size: 0.8em; /* Lebih kecil lagi */
+    }
+    .btn-primary, .btn-secondary {
+        padding: 6px 12px; /* Tombol lebih kecil */
+        font-size: 0.8em;
+        margin: 4px;
+    }
+    /* Penyesuaian untuk large social icons di layar sangat kecil */
+    .large-social-icons a {
+        font-size: 22px;
+        padding: 10px;
+        margin: 0 4px;
+    }
+    .large-social-icons::before {
+        height: 50px;
+    }
+    .testimonial-item p {
+        font-size: 0.8em; /* Font testimonial lebih kecil */
+    }
+    .testimonial-item h4 {
+        font-size: 0.9em;
+    }
+}
+
+/* === MEDIA & PARTNER SECTION RESPONSIVE FIX === */
+
+/* Desktop & Tablet */
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 24px 32px;
+    align-items: center;
+    justify-items: center;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+/* Logo wrapper */
+.partner-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    width: 100%;
+    background-color: var(--white); /* Latar belakang putih */
+    padding: 8px; /* Tambahkan padding agar logo tidak terlalu rapat */
+    border-radius: 10px; /* Sudut membulat untuk shape */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Bayangan untuk efek terangkat */
+    transition: all 0.3s ease; /* Transisi untuk hover dan dark mode */
+    box-sizing: border-box; /* Pastikan padding tidak menambah ukuran total */
+}
+
+/* Existing styles for img within partner-logo */
+.partner-logo img {
+    max-width: 90px;
+    max-height: 60px;
+    width: auto;
+    height: auto;
+    margin-bottom: 6px;
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    filter: grayscale(80%);
+    transition: filter 0.3s;
+}
+.partner-logo img:hover {
+    filter: grayscale(0%);
+}
+
+/* Ensure the text below the logo (if any, like from earlier context) is readable */
+.partner-logo span {
+    font-size: 0.9em;
+    color: var(--primary-blue); /* Default color for light mode */
+    margin-top: 2px;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px 10px;
+        max-width: 95vw;
+        margin: 0 auto;
+    }
+    .partner-logo {
+        height: 60px;
+        padding: 4px;
+    }
+    .partner-logo img {
+        max-width: 70px;
+        max-height: 40px;
+    }
+    .partner-logo span {
+        font-size: 0.8em;
+    }
+}
+
+/* Extra small mobile */
+@media (max-width: 420px) {
+    .partners-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 4px;
+    }
+    .partner-logo img {
+        max-width: 55px;
+        max-height: 30px;
+    }
+    .partner-logo {
+        height: 40px;
+    }
+}
+
+/* === FIX: Background homepage agar tidak zoom di mobile (PASTIKAN PALING BAWAH) === */
+@media (max-width: 992px) {
+  body {
+    background-size: contain !important;
+    background-position: top center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: scroll !important;
+    background-color: #5ab1e4 !important; /* fallback */
+  }
+}
+
+/* === FIX: Background homepage agar benar-benar responsif di semua device === */
+body {
+  background-size: cover !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  background-color: #5ab1e4 !important;
+}
+
+/* Untuk mobile, tetap pakai cover, tapi posisi gambar bisa diatur agar bagian penting tetap terlihat */
+@media (max-width: 200px) {
+  body {
+    background-size: cover !important;
+    background-position: center top !important;
+    background-attachment: scroll !important;
+  }
+}
+/* Untuk tablet dan desktop */
+@media (min-width: 768px) {
+  body {
+    background-size: cover !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+  }
+}
+
+/* === FIX: Jarak header dengan konten utama di seluruh halaman selain beranda === */
+main:not(.homepage-main-content) {
+    padding-top: 70px; /* Sesuaikan dengan tinggi header + shadow */
+}
+
+@media (max-width: 767px) {
+    main:not(.homepage-main-content) {
+        padding-top: 58px; /* Header lebih kecil di mobile */
+    }
+}
+
+/* === FIX: Kontak Page Dark Mode === */
+body.dark-mode .contact-section {
+    background-color: #1a2636 !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .contact-section h2,
+body.dark-mode .contact-section h3,
+body.dark-mode .contact-section h4 {
+    color: var(--light-blue-2) !important;
+}
+
+body.dark-mode .contact-info,
+body.dark-mode .contact-form-container {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .contact-form input[type="text"],
+body.dark-mode .contact-form input[type="email"],
+body.dark-mode .contact-form textarea,
+body.dark-mode .contact-form select {
+    background-color: #26344a !important;
+    border: 1px solid var(--light-blue-2) !important;
+    color: #fff !important;
+}
+
+body.dark-mode .contact-form input::placeholder,
+body.dark-mode .contact-form textarea::placeholder {
+    color: #a0b3c6 !important;
+}
+
+body.dark-mode .contact-form label {
+    color: #b6d4f5 !important;
+}
+
+body.dark-mode .contact-form button {
+    background-color: var(--light-blue-2) !important;
+    color: #0d1a2a !important;
+}
+
+body.dark-mode .contact-form button:hover {
+    background-color: var(--accent-yellow) !important;
+    color: #0d1a2a !important;
+}
+
+/* === FIX: Padding atas main agar presisi sama dengan header === */
+main:not(.homepage-main-content) {
+    padding-top: 60px; /* Samakan dengan tinggi header */
+}
+
+@media (max-width: 767px) {
+    main:not(.homepage-main-content) {
+        padding-top: 50px; /* Samakan dengan tinggi header mobile */
+    }
+}
+
+/* === FIX: Font konsisten dan proporsional di seluruh halaman === */
+
+/* Font dasar untuk desktop */
+body {
+    font-size: 18px; /* Ukuran default yang nyaman untuk desktop */
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+}
+
+/* Untuk mobile dan tablet */
+@media (max-width: 992px) {
+    body {
+        font-size: 16px; /* Sedikit lebih kecil di tablet */
+    }
+}
+@media (max-width: 767px) {
+    body {
+        font-size: 15px; /* Ukuran nyaman untuk mobile */
+    }
+}
+@media (max-width: 420px) {
+    body {
+        font-size: 14px; /* Untuk device sangat kecil */
+    }
+}
+
+/* Pastikan semua section utama mengikuti font body */
+.homepage-section,
+.content-section,
+.contact-section,
+.partners-section,
+footer,
+nav,
+header {
+    font-size: inherit;
+    /* font-family: inherit; */
+}
+
+/* === FIX: Ukuran font dan tombol media sosial bawah agar proporsional === */
+
+/* Untuk desktop dan tablet */
+.social-media-promo h2,
+.social-media-promo h3 {
+    font-size: 2em;
+    margin-bottom: 24px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+}
+
+.large-social-icons {
+    padding: 40px 0 0 0;
+}
+
+.large-social-icons a {
+    font-size: 2em;
+    padding: 20px;
+    margin: 0 18px;
+    border-radius: 18px;
+}
+
+/* Untuk mobile */
+@media (max-width: 767px) {
+    .social-media-promo h2,
+    .social-media-promo h3 {
+        font-size: 1.3em;
+        margin-bottom: 18px;
+    }
+    .large-social-icons {
+        padding: 20px 0 0 0;
+    }
+    .large-social-icons a {
+        font-size: 1.5em;
+        padding: 14px;
+        margin: 0 8px;
+        border-radius: 12px;
+    }
+}
+
+/* Untuk layar sangat kecil */
+@media (max-width: 420px) {
+    .social-media-promo h2,
+    .social-media-promo h3 {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+    }
+    .large-social-icons a {
+        font-size: 1.2em;
+        padding: 10px;
+        margin: 0 4px;
+        border-radius: 10px;
+    }
+}
+/* === FIX: Hamburger menu (dropdown nav ul) dark mode === */
+body.dark-mode nav ul {
+    background-color: #18283a !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7) !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+body.dark-mode nav ul li a {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode nav ul li a:hover {
+    color: var(--accent-yellow) !important;
+    background-color: rgba(255,255,255,0.04);
+}
+
+/* === SMOOTH DARK MODE TRANSITION === */
+body,
+main,
+header,
+nav,
+footer,
+.content-section,
+.contact-section,
+.partners-section,
+.homepage-section {
+    transition: 
+        background-color 0.4s cubic-bezier(.4,0,.2,1),
+        color 0.4s cubic-bezier(.4,0,.2,1),
+        border-color 0.4s cubic-bezier(.4,0,.2,1),
+        box-shadow 0.4s cubic-bezier(.4,0,.2,1),
+        background-image 0.4s cubic-bezier(.4,0,.2,1);
+}   
+
+/* === HEADER DARK MODE IMPROVEMENT === */
+body.dark-mode header,
+body.dark-mode nav {
+    background-color: #101b2a !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.7) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+body.dark-mode header.scrolled {
+    background-color: #162534 !important;
+}
+
+body.dark-mode nav .logo,
+body.dark-mode nav .logo span {
+    color: #e0e0e0 !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+body.dark-mode nav ul {
+    background-color: #18283a !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7) !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+body.dark-mode nav ul li a {
+    color: #e0e0e0 !important;
+    text-shadow: none !important;
+}
+
+body.dark-mode nav ul li a:hover,
+body.dark-mode nav ul li.active a {
+    color: #e0e6ef !important;
+    background-color: rgba(255,255,255,0.04) !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+body.dark-mode .hamburger-menu {
+    color: #e0e6ef !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* === PROYEK PAGE DARK MODE FIX === */
+body.dark-mode .projects-page-title {
+    color: #e0e6ef !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    background: none !important;
+}
+body.dark-mode .projects-page-title::before {
+    background: linear-gradient(45deg, #ffe082, #8ecaff) !important;
+    opacity: 0.5 !important;
+    filter: blur(6px) !important;
+}
+
+body.dark-mode .projects-grid {
+    background: transparent !important;
+}
+
+body.dark-mode .project-card {
+    background-color: #22324a !important;
+    color: #e0e6ef !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    border: 1px solid #2a3d54;
+}
+body.dark-mode .project-card h3 {
+    color: var(--light-blue-2) !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+body.dark-mode .project-card p {
+    color: #e0e6ef !important;
+}
+body.dark-mode .project-card .icon {
+    color: #ffe082 !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+body.dark-mode .project-card .play-audio-btn {
+    background-color: #3B8DBF !important;
+    color: #fff !important;
+}
+body.dark-mode .project-card .play-audio-btn:hover,
+body.dark-mode .project-card .play-audio-btn.playing {
+    background-color: #ffe082 !important;
+    color: #22324a !important;
+}

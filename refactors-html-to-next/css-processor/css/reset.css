@@ -1,0 +1,25 @@
+/* CSS Reset (tambahan untuk konsistensi box-sizing) */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* General Styles */
+:root {
+    --primary-blue: #0F50A6;
+    --light-blue-1: #3B8DBF;
+    --light-blue-2: #73C6D9;
+    --light-blue-3: #C1D9F3;
+    --accent-yellow: #F2CB57;
+    --dark-grey: #0D0D0D;
+    --white: #FFFFFF;
+
+    /* Default Light Mode Colors */
+    --text-color-light: var(--dark-grey);
+    --bg-color-main-light: rgba(193, 217, 243, 0.8);
+    --bg-color-section-light: var(--white);
+    --header-bg-light: rgba(15, 80, 166, 0.7);
+    --link-color-light: var(--primary-blue);
+    --hover-color-light: var(--accent-yellow);
+    --footer-bg-light: var(--dark-grey);
+    --search-bar-bg-light: var(--light-blue-3);
+}

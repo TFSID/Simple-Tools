@@ -1,0 +1,6 @@
+apakah selenium bisa melakukan screenshots dan auto menyimpannya kedalam file dengan format penamaan custom?
+
+
+buatkan selenium automation yang dapat melakukan requests terhadap list urls yang telah saya sediakan dalam file urls.txt lalu membuat direktori penyimpanan file hasil requests tersebut dengan folder bernama 'outputs' dalam folder tersebut akan berisi output bukti bahwa selenium berhasil melakukan requests terhadap urls tersebut dengan sub folder bernama 'screenshots' dan juga sub folder bernama 'results', pada sub folder 'screenshots' berisi file screenshot hasil requests tersebut, sedangkan pada sub folder 'results' berisi file hasil requests (untuk keperluan debugging) tersebut. dan format penamaan dari setiap file hasil requests tersebut adalah '{link_url}+{datetime.now()}.png' untuk file screenshot dan '{link_url}+{datetime.now()}.txt' untuk file hasil requests dan seterusnya. 
+
+Jangan lupa untuk menggunakan fake user agent dengan library 'fake_useragent' ataupun dengan menggunakan list user agent sintesis yang valid

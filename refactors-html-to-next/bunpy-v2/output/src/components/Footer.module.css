@@ -1,0 +1,19 @@
+/* ./output/src/components/Footer.module.css */
+
+.footer {
+  width: 100%;
+  padding: 1.5rem 0; /* Provides vertical spacing */
+  background-color: var(--background-rgb); /* Uses the global background color variable */
+  color: var(--foreground-rgb); /* Uses the global foreground color variable for text */
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  text-align: center; /* Ensures text inside is centered */
+  border-top: 1px solid rgba(var(--foreground-rgb), 0.1); /* Subtle separator from main content */
+  font-size: 0.9rem; /* Slightly smaller font size for footer text */
+}
+
+/* Add any additional styles for elements within the footer if needed */
+.footer p {
+  margin: 0; /* Remove default paragraph margin */
+}

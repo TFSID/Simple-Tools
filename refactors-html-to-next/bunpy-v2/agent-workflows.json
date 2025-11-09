@@ -1,0 +1,635 @@
+{
+  "name": "Enhanced Task Synthesis System with Robust Error Handling",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "task-synthesis",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "task-synthesis-webhook"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Extract and validate input\nconst body = $input.item.json.body || $input.item.json;\n\nconst goal = body.goal;\nconst inputContext = body.input_context || {};\nconst maxRetries = body.max_retries || 7;\nconst enableCircuitBreaker = body.enable_circuit_breaker !== false;\nconst enableHealthChecks = body.enable_health_checks !== false;\n\n// Generate session ID\nconst sessionId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;\n\n// Validate required fields\nif (!goal) {\n  throw new Error('Goal is required');\n}\n\n// Initialize workflow state\nreturn {\n  json: {\n    sessionId,\n    goal,\n    inputContext,\n    config: {\n      maxRetries,\n      enableCircuitBreaker,\n      enableHealthChecks,\n      initialDelay: 1.0,\n      maxDelay: 60.0,\n      backoffMultiplier: 2,\n      apiUrl: body.api_url || 'http://localhost:8017/v1/generate',\n      apiKey: body.api_key || 'sk-e0dde619-2dd3-4018-aad1-e7f602d58534'\n    },\n    circuitBreaker: {\n      state: 'CLOSED',\n      failureCount: 0,\n      successCount: 0,\n      lastFailureTime: null,\n      threshold: 5,\n      timeout: 60000\n    },\n    healthStatus: {\n      isHealthy: true,\n      apiSuccessRate: 1.0,\n      totalApiCalls: 0,\n      successfulApiCalls: 0\n    },\n    taskList: null,\n    currentTaskIndex: 0,\n    errors: [],\n    startTime: new Date().toISOString()\n  }\n};"
+      },
+      "id": "init-workflow",
+      "name": "Initialize Workflow",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Health Check Function\nconst state = $input.item.json;\n\nif (!state.config.enableHealthChecks) {\n  return {\n    json: {\n      ...state,\n      healthStatus: {\n        ...state.healthStatus,\n        isHealthy: true,\n        lastCheck: new Date().toISOString()\n      }\n    }\n  };\n}\n\nconst errors = [];\nconst now = Date.now();\n\n// Check API success rate\nlet apiStatus = 'healthy';\nif (state.healthStatus.apiSuccessRate < 0.5) {\n  apiStatus = 'degraded';\n  errors.push(`API success rate below 50%: ${(state.healthStatus.apiSuccessRate * 100).toFixed(1)}%`);\n} else if (state.healthStatus.apiSuccessRate < 0.8) {\n  apiStatus = 'warning';\n}\n\n// Check circuit breaker status\nif (state.circuitBreaker.state === 'OPEN') {\n  errors.push('Circuit breaker is OPEN');\n}\n\nconst isHealthy = apiStatus !== 'degraded' && state.circuitBreaker.state !== 'OPEN';\n\nreturn {\n  json: {\n    ...state,\n    healthStatus: {\n      ...state.healthStatus,\n      isHealthy,\n      apiStatus,\n      lastCheck: new Date().toISOString(),\n      errors\n    }\n  }\n};"
+      },
+      "id": "health-check",
+      "name": "Health Check",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.healthStatus.isHealthy}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-health-status",
+      "name": "Check Health Status",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Check Circuit Breaker State\nconst state = $input.item.json;\n\nif (!state.config.enableCircuitBreaker) {\n  return {\n    json: {\n      ...state,\n      canProceed: true\n    }\n  };\n}\n\nconst cb = state.circuitBreaker;\nconst now = Date.now();\n\nif (cb.state === 'OPEN') {\n  const timeSinceFailure = cb.lastFailureTime ? now - cb.lastFailureTime : 0;\n  \n  if (timeSinceFailure >= cb.timeout) {\n    return {\n      json: {\n        ...state,\n        circuitBreaker: {\n          ...cb,\n          state: 'HALF_OPEN',\n          successCount: 0\n        },\n        canProceed: true\n      }\n    };\n  } else {\n    const waitTime = (cb.timeout - timeSinceFailure) / 1000;\n    throw new Error(`Circuit breaker is OPEN. Wait ${waitTime.toFixed(1)}s before retry`);\n  }\n}\n\nreturn {\n  json: {\n    ...state,\n    canProceed: true\n  }\n};"
+      },
+      "id": "circuit-breaker-check",
+      "name": "Circuit Breaker Check",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1050, 200]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Create Task List Prompt\nconst state = $input.item.json;\n\nconst prompt = `Create a comprehensive task list for the following goal: \"${state.goal}\"\n\n=== INPUT CONTEXT ===\n${JSON.stringify(state.inputContext, null, 2)}\n\n=== REQUIREMENTS ===\nEach task should be:\n- Specific and actionable\n- Have clear input and output expectations\n- Include error handling considerations\n- Be executable and testable\n- Include realistic time estimates\n- Specify what files will be created, read, or modified\n\nFor each task, include a \"file_operations\" section specifying:\n- What files will be created (with paths)\n- What files will be read\n- What files will be modified\n- What files will be deleted (if any)\n\n=== RESPONSE FORMAT ===\nReturn ONLY valid JSON in this exact format:\n{\n  \"id\": \"generated_unique_id\",\n  \"title\": \"Task List Title\",\n  \"description\": \"Overall description\",\n  \"tasks\": [\n    {\n      \"id\": \"task_1\",\n      \"title\": \"Task Title\",\n      \"description\": \"What this task accomplishes\",\n      \"type\": \"conversion\",\n      \"priority\": \"high\",\n      \"dependencies\": [],\n      \"estimated_time\": 30,\n      \"file_operations\": [\n        {\n          \"operation\": \"create\",\n          \"file_path\": \"./output/file.tsx\",\n          \"description\": \"Description\",\n          \"priority\": \"high\"\n        }\n      ]\n    }\n  ],\n  \"goals\": [\"primary_goal\"]\n}\n\nTask types: code_generation, analysis, conversion, review, testing, cleanup, maintenance, optimization\nPriority levels: high, medium, low\nFile operations: create, read, delete, modify, execute`;\n\nconst systemInstruction = \"You are an expert project manager and developer. Return ONLY valid JSON without markdown formatting. Include comprehensive file operation specifications for each task.\";\n\nreturn {\n  json: {\n    ...state,\n    currentPrompt: prompt,\n    currentSystemInstruction: systemInstruction,\n    currentOperation: 'create_task_list',\n    retryCount: 0\n  }\n};"
+      },
+      "id": "prepare-task-list-prompt",
+      "name": "Prepare Task List Prompt",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "url": "={{$json.config.apiUrl}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{$json.config.apiKey}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{$json.currentPrompt}}\",\n  \"model_name\": \"gemini-2.5-flash-preview-05-20\",\n  \"temperature\": 1,\n  \"top_p\": 0.95,\n  \"max_output_tokens\": 65536,\n  \"system_instruction\": \"{{$json.currentSystemInstruction}}\"\n}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "call-gemini-api",
+      "name": "Call Gemini API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1450, 200],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "api-success-condition",
+              "leftValue": "={{$json.error}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-api-response",
+      "name": "Check API Response",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1650, 200]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Update Circuit Breaker on API Success\nconst items = $input.all();\nconst stateItem = items[0];\nconst apiItem = items[1];\n\nconst state = stateItem.json;\nconst apiResponse = apiItem.json;\n\nif (!state.config.enableCircuitBreaker) {\n  return [{\n    json: {\n      ...state,\n      apiResponse: apiResponse.output_text || JSON.stringify(apiResponse)\n    }\n  }];\n}\n\nconst cb = state.circuitBreaker;\n\nif (cb.state === 'HALF_OPEN') {\n  cb.successCount++;\n  if (cb.successCount >= 2) {\n    cb.state = 'CLOSED';\n    cb.failureCount = 0;\n    cb.successCount = 0;\n  }\n} else if (cb.state === 'CLOSED') {\n  cb.failureCount = Math.max(0, cb.failureCount - 1);\n}\n\n// Update health status\nstate.healthStatus.totalApiCalls++;\nstate.healthStatus.successfulApiCalls++;\nstate.healthStatus.apiSuccessRate = state.healthStatus.successfulApiCalls / state.healthStatus.totalApiCalls;\n\nreturn [{\n  json: {\n    ...state,\n    circuitBreaker: cb,\n    apiResponse: apiResponse.output_text || JSON.stringify(apiResponse)\n  }\n}];"
+      },
+      "id": "update-circuit-breaker-success",
+      "name": "Update Circuit Breaker (Success)",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1850, 100]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Update Circuit Breaker on API Failure\nconst items = $input.all();\nconst stateItem = items[0];\nconst errorItem = items[1];\n\nconst state = stateItem.json;\nconst error = errorItem.json.error || 'Unknown API error';\n\nif (!state.config.enableCircuitBreaker) {\n  return [{\n    json: {\n      ...state,\n      lastError: error\n    }\n  }];\n}\n\nconst cb = state.circuitBreaker;\nconst now = Date.now();\n\ncb.failureCount++;\ncb.lastFailureTime = now;\n\nif (cb.state === 'HALF_OPEN') {\n  cb.state = 'OPEN';\n  cb.successCount = 0;\n} else if (cb.failureCount >= cb.threshold) {\n  cb.state = 'OPEN';\n}\n\n// Update health status\nstate.healthStatus.totalApiCalls++;\nstate.healthStatus.apiSuccessRate = state.healthStatus.successfulApiCalls / state.healthStatus.totalApiCalls;\n\nstate.errors.push({\n  timestamp: new Date().toISOString(),\n  operation: state.currentOperation,\n  error: error,\n  circuitBreakerState: cb.state\n});\n\nreturn [{\n  json: {\n    ...state,\n    circuitBreaker: cb,\n    lastError: error\n  }\n}];"
+      },
+      "id": "update-circuit-breaker-failure",
+      "name": "Update Circuit Breaker (Failure)",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1850, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse and Validate Task List\nconst state = $input.item.json;\nconst apiResponse = state.apiResponse;\n\nfunction extractJSON(text) {\n  text = text.replace(/```(?:json|typescript|tsx|javascript)?\\n?/g, '');\n  text = text.replace(/```/g, '');\n  \n  const lines = text.split('\\n');\n  if (lines[0].trim().toLowerCase() === 'json') {\n    text = lines.slice(1).join('\\n');\n  }\n  \n  const firstBrace = text.indexOf('{');\n  const lastBrace = text.lastIndexOf('}');\n  \n  if (firstBrace >= 0 && lastBrace > firstBrace) {\n    return text.substring(firstBrace, lastBrace + 1);\n  }\n  \n  return text.trim();\n}\n\nfunction repairJSON(jsonStr) {\n  jsonStr = jsonStr.replace(/,(\\s*})/g, '$1');\n  jsonStr = jsonStr.replace(/,(\\s*])/g, '$1');\n  return jsonStr;\n}\n\ntry {\n  let jsonText = extractJSON(apiResponse);\n  jsonText = repairJSON(jsonText);\n  \n  const taskListData = JSON.parse(jsonText);\n  \n  if (!taskListData.id || !taskListData.title || !taskListData.tasks) {\n    throw new Error('Invalid task list structure');\n  }\n  \n  taskListData.tasks = taskListData.tasks.map((task, index) => ({\n    ...task,\n    status: 'pending',\n    retryCount: 0,\n    createdAt: new Date().toISOString(),\n    index\n  }));\n  \n  return {\n    json: {\n      ...state,\n      taskList: taskListData,\n      currentTaskIndex: 0,\n      taskListCreated: true\n    }\n  };\n  \n} catch (error) {\n  const fallbackTaskList = {\n    id: `fallback_${Date.now()}`,\n    title: 'Fallback Task List',\n    description: 'Created due to JSON parsing failure',\n    tasks: [\n      {\n        id: 'fallback_task_1',\n        title: 'Manual Review Required',\n        description: `JSON parsing failed: ${error.message}`,\n        type: 'review',\n        priority: 'high',\n        status: 'pending',\n        file_operations: [],\n        index: 0\n      }\n    ],\n    goals: [state.goal]\n  };\n  \n  return {\n    json: {\n      ...state,\n      taskList: fallbackTaskList,\n      currentTaskIndex: 0,\n      taskListCreated: true,\n      errors: [...state.errors, {\n        timestamp: new Date().toISOString(),\n        operation: 'parse_task_list',\n        error: error.message,\n        usedFallback: true\n      }]\n    }\n  };\n}"
+      },
+      "id": "parse-task-list",
+      "name": "Parse Task List",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2050, 100]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "more-tasks-condition",
+              "leftValue": "={{$json.currentTaskIndex}}",
+              "rightValue": "={{$json.taskList.tasks.length}}",
+              "operator": {
+                "type": "number",
+                "operation": "smaller"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-more-tasks",
+      "name": "Check More Tasks",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2250, 100]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Get Next Task\nconst state = $input.item.json;\nconst tasks = state.taskList.tasks;\nconst currentIndex = state.currentTaskIndex;\n\nif (currentIndex >= tasks.length) {\n  return {\n    json: {\n      ...state,\n      allTasksCompleted: true\n    }\n  };\n}\n\nconst currentTask = tasks[currentIndex];\n\n// Check dependencies\nconst completedTaskIds = tasks\n  .filter(t => t.status === 'completed')\n  .map(t => t.id);\n\nconst dependenciesSatisfied = !currentTask.dependencies || \n  currentTask.dependencies.every(depId => completedTaskIds.includes(depId));\n\nif (!dependenciesSatisfied) {\n  for (let i = currentIndex + 1; i < tasks.length; i++) {\n    const task = tasks[i];\n    const satisfied = !task.dependencies || \n      task.dependencies.every(depId => completedTaskIds.includes(depId));\n    \n    if (satisfied && task.status === 'pending') {\n      return {\n        json: {\n          ...state,\n          currentTask: task,\n          currentTaskIndex: i\n        }\n      };\n    }\n  }\n  \n  return {\n    json: {\n      ...state,\n      allTasksCompleted: true\n    }\n  };\n}\n\nreturn {\n  json: {\n    ...state,\n    currentTask,\n    currentTaskIndex: currentIndex\n  }\n};"
+      },
+      "id": "get-next-task",
+      "name": "Get Next Task",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2450, 0]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Prepare Task Execution\nconst state = $input.item.json;\nconst task = state.currentTask;\n\nlet prompt = '';\n\nswitch (task.type) {\n  case 'code_generation':\n    prompt = `Generate code for: ${task.description}\\n\\nInput: ${JSON.stringify(task.input_data || {}, null, 2)}\\n\\nRequirements:\\n- Modern features\\n- Error handling\\n- Best practices\\n- Return only code`;\n    break;\n    \n  case 'conversion':\n    prompt = `Convert: ${task.description}\\n\\nInput: ${JSON.stringify(task.input_data || {}, null, 2)}\\n\\nRequirements:\\n- Best practices\\n- Clean code\\n- Return only converted content`;\n    break;\n    \n  case 'analysis':\n    prompt = `Analyze: ${task.description}\\n\\nInput: ${JSON.stringify(task.input_data || {}, null, 2)}\\n\\nProvide insights and recommendations`;\n    break;\n    \n  case 'review':\n    prompt = `Review: ${task.description}\\n\\nInput: ${JSON.stringify(task.input_data || {}, null, 2)}\\n\\nProvide feedback on quality and improvements`;\n    break;\n    \n  default:\n    prompt = `Complete task: ${task.description}\\n\\nProvide detailed response`;\n}\n\nconst systemInstruction = `You are an expert ${task.type} specialist. Provide high-quality output.`;\n\ntask.status = 'in_progress';\ntask.startTime = new Date().toISOString();\n\nreturn {\n  json: {\n    ...state,\n    currentPrompt: prompt,\n    currentSystemInstruction: systemInstruction,\n    currentOperation: `execute_task_${task.id}`,\n    retryCount: task.retryCount || 0\n  }\n};"
+      },
+      "id": "prepare-task-execution",
+      "name": "Prepare Task Execution",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2650, 0]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Handle Task Result\nconst items = $input.all();\nconst stateItem = items[0];\nconst apiItem = items[1];\n\nconst state = stateItem.json;\nconst apiResponse = apiItem.json;\nconst task = state.currentTask;\n\ntask.status = 'completed';\ntask.completedAt = new Date().toISOString();\ntask.output = {\n  content: apiResponse.output_text || JSON.stringify(apiResponse),\n  summary: `Task completed: ${task.title}`,\n  createdAt: new Date().toISOString()\n};\n\nif (task.startTime) {\n  const startTime = new Date(task.startTime).getTime();\n  const endTime = Date.now();\n  task.actualTime = endTime - startTime;\n}\n\nstate.taskList.tasks[state.currentTaskIndex] = task;\nstate.currentTaskIndex++;\n\nreturn [{\n  json: state\n}];"
+      },
+      "id": "handle-task-result",
+      "name": "Handle Task Result",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2850, 0]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Handle Task Failure\nconst items = $input.all();\nconst stateItem = items[0];\nconst errorItem = items[1];\n\nconst state = stateItem.json;\nconst task = state.currentTask;\nconst error = errorItem.json.error || 'Unknown error';\n\ntask.retryCount = (task.retryCount || 0) + 1;\n\nif (task.retryCount > state.config.maxRetries) {\n  task.status = 'failed';\n  task.errors = task.errors || [];\n  task.errors.push({\n    timestamp: new Date().toISOString(),\n    error: error,\n    retryCount: task.retryCount\n  });\n  \n  state.currentTaskIndex++;\n  \n  state.errors.push({\n    timestamp: new Date().toISOString(),\n    taskId: task.id,\n    taskTitle: task.title,\n    error: `Task failed after ${task.retryCount} retries`\n  });\n} else {\n  task.status = 'pending';\n  \n  const delay = Math.min(\n    state.config.initialDelay * Math.pow(state.config.backoffMultiplier, task.retryCount),\n    state.config.maxDelay\n  );\n  \n  task.nextRetryTime = Date.now() + (delay * 1000);\n}\n\nstate.taskList.tasks[state.currentTaskIndex] = task;\n\nreturn [{\n  json: state\n}];"
+      },
+      "id": "handle-task-failure",
+      "name": "Handle Task Failure",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2850, 200]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Generate Final Report\nconst state = $input.item.json;\nconst tasks = state.taskList.tasks;\n\nconst completedTasks = tasks.filter(t => t.status === 'completed');\nconst failedTasks = tasks.filter(t => t.status === 'failed');\nconst pendingTasks = tasks.filter(t => t.status === 'pending');\n\nconst report = {\n  sessionId: state.sessionId,\n  goal: state.goal,\n  startTime: state.startTime,\n  endTime: new Date().toISOString(),\n  taskList: {\n    id: state.taskList.id,\n    title: state.taskList.title,\n    description: state.taskList.description\n  },\n  statistics: {\n    total: tasks.length,\n    completed: completedTasks.length,\n    failed: failedTasks.length,\n    pending: pendingTasks.length,\n    successRate: tasks.length > 0 ? (completedTasks.length / tasks.length * 100).toFixed(1) + '%' : '0%'\n  },\n  healthStatus: state.healthStatus,\n  circuitBreaker: {\n    finalState: state.circuitBreaker.state,\n    totalFailures: state.circuitBreaker.failureCount\n  },\n  completedTasks: completedTasks.map(t => ({\n    id: t.id,\n    title: t.title,\n    type: t.type,\n    executionTime: t.actualTime,\n    output: t.output\n  })),\n  failedTasks: failedTasks.map(t => ({\n    id: t.id,\n    title: t.title,\n    type: t.type,\n    errors: t.errors\n  })),\n  errors: state.errors,\n  success: failedTasks.length === 0 && completedTasks.length > 0\n};\n\nreturn {\n  json: report\n};"
+      },
+      "id": "generate-report",
+      "name": "Generate Final Report",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2450, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify($json)}}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-success",
+      "name": "Respond - Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [2650, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({error: 'System health check failed', details: $json.healthStatus})}}",
+        "options": {
+          "responseCode": 503,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-health-error",
+      "name": "Respond - Health Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{JSON.stringify({error: 'Circuit breaker open', retryAfter: $json.circuitBreaker.timeout, message: 'Too many failures detected. Please try again later.'})}}",
+        "options": {
+          "responseCode": 503,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-circuit-breaker-error",
+      "name": "Respond - Circuit Breaker Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [2050, 300]
+    },
+    {
+      "parameters": {
+        "mode": "combineAll"
+      },
+      "id": "merge-state-api-success",
+      "name": "Merge State + API (Success)",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [1850, 100]
+    },
+    {
+      "parameters": {
+        "mode": "combineAll"
+      },
+      "id": "merge-state-api-failure",
+      "name": "Merge State + API (Failure)",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [1850, 300]
+    },
+    {
+      "parameters": {
+        "mode": "combineAll"
+      },
+      "id": "merge-state-task-result",
+      "name": "Merge State + Task Result",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [2850, 0]
+    },
+    {
+      "parameters": {
+        "mode": "combineAll"
+      },
+      "id": "merge-state-task-failure",
+      "name": "Merge State + Task Failure",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [2850, 200]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Initialize Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Workflow": {
+      "main": [
+        [
+          {
+            "node": "Health Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health Check": {
+      "main": [
+        [
+          {
+            "node": "Check Health Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Health Status": {
+      "main": [
+        [
+          {
+            "node": "Circuit Breaker Check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond - Health Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Circuit Breaker Check": {
+      "main": [
+        [
+          {
+            "node": "Prepare Task List Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Task List Prompt": {
+      "main": [
+        [
+          {
+            "node": "Call Gemini API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Gemini API": {
+      "main": [
+        [
+          {
+            "node": "Check API Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check API Response": {
+      "main": [
+        [
+          {
+            "node": "Merge State + API (Success)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge State + API (Failure)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge State + API (Success)": {
+      "main": [
+        [
+          {
+            "node": "Update Circuit Breaker (Success)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge State + API (Failure)": {
+      "main": [
+        [
+          {
+            "node": "Update Circuit Breaker (Failure)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Circuit Breaker (Success)": {
+      "main": [
+        [
+          {
+            "node": "Parse Task List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Circuit Breaker (Failure)": {
+      "main": [
+        [
+          {
+            "node": "Respond - Circuit Breaker Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Task List": {
+      "main": [
+        [
+          {
+            "node": "Check More Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check More Tasks": {
+      "main": [
+        [
+          {
+            "node": "Get Next Task",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate Final Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Next Task": {
+      "main": [
+        [
+          {
+            "node": "Prepare Task Execution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Task Execution": {
+      "main": [
+        [
+          {
+            "node": "Call Gemini API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge State + Task Result": {
+      "main": [
+        [
+          {
+            "node": "Handle Task Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge State + Task Failure": {
+      "main": [
+        [
+          {
+            "node": "Handle Task Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle Task Result": {
+      "main": [
+        [
+          {
+            "node": "Check More Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle Task Failure": {
+      "main": [
+        [
+          {
+            "node": "Check More Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Final Report": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "id": "1",
+      "name": "AI Workflows"
+    },
+    {
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "id": "2",
+      "name": "Task Synthesis"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1.0.0"
+}

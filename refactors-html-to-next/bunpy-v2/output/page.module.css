@@ -1,0 +1,95 @@
+css
+/* src/app/page.module.css */
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers items horizontally within the main content area */
+  padding: 4rem 2rem; /* Vertical and horizontal padding for the main content */
+  max-width: 1200px; /* Maximum width of the content area */
+  margin: 0 auto; /* Centers the content block itself on wider screens */
+  gap: 2.5rem; /* Space between major content elements (h1, p, sections) */
+  text-align: center; /* Default text alignment for the entire main content block */
+  flex-grow: 1; /* Allows the main content area to grow and fill available space */
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size for the main title */
+  color: #2c3e50; /* Dark grey text color */
+  margin-bottom: 1rem; /* Space below the title */
+  line-height: 1.2; /* Line height for better readability */
+}
+
+.description {
+  font-size: clamp(1rem, 2vw, 1.25rem); /* Responsive font size for the description */
+  color: #34495e; /* Slightly lighter dark grey text color */
+  line-height: 1.6; /* Increased line height for paragraphs */
+  max-width: 800px; /* Constrain description width for readability */
+}
+
+.section {
+  background-color: #ffffff; /* White background for sections */
+  border: 1px solid #e0e0e0; /* Light grey border */
+  border-radius: 12px; /* Rounded corners for sections */
+  padding: 3rem 2rem; /* Padding inside each section */
+  width: 100%; /* Sections take full width up to max-width */
+  max-width: 800px; /* Max width for individual sections */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Soft shadow for depth */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between elements within a section */
+  align-items: center; /* Centers content horizontally within each section */
+  text-align: center; /* Default text alignment for section content */
+}
+
+.sectionTitle {
+  font-size: clamp(1.8rem, 4vw, 2.5rem); /* Responsive font size for section titles */
+  color: #007bff; /* Primary brand color for titles */
+  margin-bottom: 0.5rem; /* Space below section titles */
+}
+
+.sectionText {
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem); /* Responsive font size for section text */
+  color: #555; /* Medium grey text color */
+  line-height: 1.5; /* Line height for section paragraphs */
+  max-width: 600px; /* Constrain section text width */
+}
+
+.link {
+  display: inline-flex; /* Use flex for potential icon alignment or centering */
+  align-items: center; /* Vertically align content within the link */
+  gap: 0.5rem; /* Space between text and a potential icon */
+  background-color: #007bff; /* Primary brand color for link background */
+  color: white; /* White text color for links */
+  padding: 0.8rem 1.8rem; /* Padding around link text */
+  border-radius: 8px; /* Rounded corners for links */
+  text-decoration: none; /* Remove underline from links */
+  font-weight: 600; /* Bold font weight */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+  white-space: nowrap; /* Prevent link text from wrapping */
+}
+
+.link:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow on hover */
+}
+
+.link:active {
+  background-color: #004085; /* Even darker blue on click */
+  transform: translateY(0); /* Reset lift effect */
+  box-shadow: none; /* Remove shadow on click */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .mainContent {
+    padding: 2rem 1rem; /* Reduce padding on smaller screens */
+    gap: 1.5rem; /* Reduce gap between elements */
+  }
+
+  .section {
+    padding: 2rem 1rem; /* Reduce padding within sections */
+    gap: 1rem; /* Reduce gap within sections */
+  }
+}

@@ -1,0 +1,755 @@
+{
+  "id": "6324b31c-e54b-4cb8-8344-2d445a34e759",
+  "title": "Convert index.html to Next.js Components (TypeScript)",
+  "description": "Comprehensive task list to convert a static 'index.html' file into functional Next.js components, including asset handling, CSS migration, and JavaScript logic conversion to TypeScript within a Next.js project structure.",
+  "created_at": "2025-11-08T20:26:28.357406+00:00",
+  "tasks": [
+    {
+      "id": "task_1_analyze_html_structure",
+      "title": "Analyze Input HTML Structure and Dependencies",
+      "description": "Read the `index.html` file to understand its overall structure, identify semantic sections (header, nav, main, footer), embedded CSS (`<style>` tags, inline styles), external CSS links (`<link rel='stylesheet'>`), embedded JavaScript (`<script>` tags), external JavaScript links, and static assets (images, fonts). This analysis will inform component breakdown and resource migration strategies.",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 60,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357267+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./index.html",
+          "description": "Read the main HTML file to analyze its content and dependencies.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357235+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./conversion_notes/html_analysis_report.json",
+          "description": "Document identified sections, styles, scripts, and assets for later use.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357245+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_2_initial_html_to_jsx_conversion",
+      "title": "Perform Initial HTML to JSX Conversion for Main Page",
+      "description": "Convert the `<body>` content of `index.html` into a basic Next.js page component (`src/app/page.tsx`). This involves translating HTML elements to JSX syntax, converting attributes like `class` to `className`, `for` to `htmlFor`, and handling self-closing tags. Embedded styles and scripts will be commented out or noted for later extraction.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1_analyze_html_structure"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 90,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357280+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./index.html",
+          "description": "Read the input HTML file.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357271+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/app/page.tsx",
+          "description": "Create the main Next.js page component with the converted JSX.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357273+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_3_extract_and_migrate_css",
+      "title": "Extract and Migrate CSS Styles",
+      "description": "Identify all CSS definitions (inline styles, `<style>` blocks, external `<link>` tags) from `index.html` and migrate them to a Next.js-compatible styling solution. Prioritize global CSS for shared styles (`src/app/globals.css`) and CSS Modules for component-specific styles (`src/components/[Component].module.css`). Update `src/app/page.tsx` to reference the new CSS.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1_analyze_html_structure",
+        "task_2_initial_html_to_jsx_conversion"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 120,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357302+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./index.html",
+          "description": "Read HTML to extract CSS.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357283+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./conversion_notes/html_analysis_report.json",
+          "description": "Consult analysis for identified CSS.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357285+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/app/globals.css",
+          "description": "Create or append global styles.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357287+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/styles/legacy_styles.css",
+          "description": "Optional: Temporary file for all extracted legacy CSS before modularization.",
+          "priority": "low",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357289+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/components/[component_name].module.css",
+          "description": "Create CSS Module files for component-specific styles as needed.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357291+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/app/page.tsx",
+          "description": "Import and apply global and component-specific CSS.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357293+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./path/to/original/external/style.css",
+          "description": "Read original external CSS files if linked in index.html.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357295+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_4_extract_and_migrate_assets",
+      "title": "Extract and Migrate Static Assets (Images, Fonts, etc.)",
+      "description": "Identify all static assets (images, fonts, videos, favicons) referenced in `index.html` and its associated CSS. Move these assets to the `public/` directory in the Next.js project. Update all asset paths in `src/app/page.tsx` and any newly created CSS files to reference the new locations, utilizing Next.js's static file serving.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1_analyze_html_structure",
+        "task_2_initial_html_to_jsx_conversion",
+        "task_3_extract_and_migrate_css"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 45,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357321+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./index.html",
+          "description": "Read HTML to identify asset references.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357304+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./conversion_notes/html_analysis_report.json",
+          "description": "Consult analysis for identified assets.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357306+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./src/app/globals.css",
+          "description": "Read CSS files to identify background image or font references.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357308+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./path/to/original/image.jpg",
+          "description": "Read original image files to copy them.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357310+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./public/[asset_directory]/[asset_name].[ext]",
+          "description": "Create directories and copy identified assets into the public folder.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357312+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/app/page.tsx",
+          "description": "Update asset paths (e.g., `<img>` src) to point to `public/`.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357313+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/app/globals.css",
+          "description": "Update background-image and font-src URLs.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357315+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_5_identify_and_create_components",
+      "title": "Identify and Create Reusable React Components",
+      "description": "Based on the HTML structure analysis, identify logical, reusable sections (e.g., Header, Footer, Navigation, Cards, Sections). Extract these sections from `src/app/page.tsx` into individual TypeScript React components within `src/components/` directory. Each component should have its own `.tsx` file and potentially its own CSS Module (`.module.css`).",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_2_initial_html_to_jsx_conversion",
+        "task_3_extract_and_migrate_css"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 180,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357341+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./src/app/page.tsx",
+          "description": "Read the initially converted page to extract component sections.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357323+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/components/Header.tsx",
+          "description": "Create a Header component.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357325+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/components/Footer.tsx",
+          "description": "Create a Footer component.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357327+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/components/Navigation.tsx",
+          "description": "Create a Navigation component.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357329+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/components/[CustomSection].tsx",
+          "description": "Create additional custom components as identified (e.g., Card, HeroSection).",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357330+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/components/[Component].module.css",
+          "description": "Create corresponding CSS Module files for new components.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357332+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/app/page.tsx",
+          "description": "Replace extracted HTML sections with imported React components.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357334+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_6_convert_javascript_logic",
+      "title": "Convert JavaScript Logic to React/Next.js (TypeScript)",
+      "description": "Identify all JavaScript logic from `index.html`'s `<script>` tags (both inline and external). Convert this logic into React hooks (e.g., `useState`, `useEffect`) and event handlers for the relevant Next.js components. Ensure type safety using TypeScript. For complex DOM manipulations, identify the React equivalent.",
+      "type": "conversion",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_1_analyze_html_structure",
+        "task_5_identify_and_create_components"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 150,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357359+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./index.html",
+          "description": "Read HTML to extract JavaScript code.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357343+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./conversion_notes/html_analysis_report.json",
+          "description": "Consult analysis for identified scripts.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357345+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./path/to/original/script.js",
+          "description": "Read original external JavaScript files if linked in index.html.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357347+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/app/page.tsx",
+          "description": "Integrate converted JS logic into the main page component.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357349+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/components/[Component].tsx",
+          "description": "Integrate converted JS logic into relevant child components using React hooks and event handlers.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357351+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./src/hooks/use[Feature].ts",
+          "description": "Create custom React hooks for reusable logic if applicable.",
+          "priority": "low",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357353+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_7_review_and_refine_codebase",
+      "title": "Review and Refine Next.js Codebase",
+      "description": "Perform a comprehensive review of the converted Next.js components. Check for Next.js best practices (e.g., `next/image` for images, `next/link` for navigation). Optimize performance, ensure accessibility, and refactor code for readability and maintainability. Verify TypeScript types are correctly applied throughout.",
+      "type": "review",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_5_identify_and_create_components",
+        "task_6_convert_javascript_logic"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 90,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357379+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": "./src/app/page.tsx",
+          "description": "Review main page component.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357361+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./src/components/**/*.tsx",
+          "description": "Review all created React components.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357363+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./src/app/globals.css",
+          "description": "Review global styles.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357364+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./src/components/**/*.module.css",
+          "description": "Review component-specific styles.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357366+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/app/page.tsx",
+          "description": "Apply optimizations and best practices.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357368+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/components/**/*.tsx",
+          "description": "Apply optimizations and best practices.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357369+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/app/globals.css",
+          "description": "Refine and optimize CSS.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357371+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "modify",
+          "file_path": "./src/components/**/*.module.css",
+          "description": "Refine and optimize CSS.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357373+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "task_8_local_development_testing",
+      "title": "Perform Local Development Testing",
+      "description": "Run the Next.js application locally and thoroughly test all converted components and functionalities. Verify that the layout, styling, interactivity, and asset loading match the original `index.html` as closely as possible. Use browser developer tools to check for errors, warnings, and performance issues.",
+      "type": "testing",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [
+        "task_7_review_and_refine_codebase"
+      ],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 60,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357389+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "execute",
+          "file_path": "npm run dev OR yarn dev OR pnpm dev",
+          "description": "Start the Next.js development server.",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357381+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./src/app/page.tsx",
+          "description": "Read the main page component for rendering.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357383+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "read",
+          "file_path": "./src/components/**/*.tsx",
+          "description": "Read child components for rendering.",
+          "priority": "medium",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357385+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "1762633588357_56839999",
+      "title": "Read and analyze HTML file",
+      "description": "Read the HTML file and extract structure, scripts, and styles",
+      "type": "analysis",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 10,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.357994+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "read",
+          "file_path": ".\\index.html",
+          "description": "Source HTML file to analyze",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.357986+00:00",
+          "completed_at": null
+        }
+      ]
+    },
+    {
+      "id": "1762633588357_50b2dc55",
+      "title": "Generate Next.js component structure",
+      "description": "Create TypeScript React component files with proper structure",
+      "type": "code_generation",
+      "status": "pending",
+      "priority": "high",
+      "dependencies": [],
+      "input_data": null,
+      "output_data": null,
+      "output": null,
+      "code": null,
+      "errors": null,
+      "estimated_time": 30,
+      "actual_time": null,
+      "created_at": "2025-11-08T20:26:28.358007+00:00",
+      "completed_at": null,
+      "file_operations": [
+        {
+          "operation": "create",
+          "file_path": "./output/components/Header.tsx",
+          "description": "Header component",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.358001+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/components/Main.tsx",
+          "description": "Main content component",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.358003+00:00",
+          "completed_at": null
+        },
+        {
+          "operation": "create",
+          "file_path": "./output/page.tsx",
+          "description": "Next.js main page",
+          "priority": "high",
+          "dependencies": [],
+          "size_bytes": null,
+          "checksum": null,
+          "created_at": "2025-11-08T20:26:28.358005+00:00",
+          "completed_at": null
+        }
+      ]
+    }
+  ],
+  "current_task_index": 0,
+  "goals": [
+    "Convert index.html content into functional Next.js components.",
+    "Migrate all CSS (inline, embedded, external) to Next.js-compatible styling.",
+    "Migrate all JavaScript logic to React hooks and event handlers using TypeScript.",
+    "Relocate all static assets to the Next.js `public` directory and update references.",
+    "Break down the monolithic HTML into logical, reusable React components.",
+    "Ensure the converted application is visually and functionally equivalent to the original HTML.",
+    "Adhere to Next.js best practices and TypeScript type safety."
+  ],
+  "status": "active",
+  "progress": {
+    "total": 10,
+    "completed": 0,
+    "failed": 0,
+    "in_progress": 0,
+    "pending": 10
+  },
+  "file_operations": [],
+  "output_list": [],
+  "audit_log": []
+}

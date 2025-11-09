@@ -1,0 +1,93 @@
+/* CSS Reset (tambahan untuk konsistensi box-sizing) */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* General Styles */
+:root {
+    --primary-blue: #0F50A6;
+    --light-blue-1: #3B8DBF;
+    --light-blue-2: #73C6D9;
+    --light-blue-3: #C1D9F3;
+    --accent-yellow: #F2CB57;
+    --dark-grey: #0D0D0D;
+    --white: #FFFFFF;
+
+    /* Default Light Mode Colors */
+    --text-color-light: var(--dark-grey);
+    --bg-color-main-light: rgba(193, 217, 243, 0.8);
+    --bg-color-section-light: var(--white);
+    --header-bg-light: rgba(15, 80, 166, 0.7);
+    --link-color-light: var(--primary-blue);
+    --hover-color-light: var(--accent-yellow);
+    --footer-bg-light: var(--dark-grey);
+    --search-bar-bg-light: var(--light-blue-3);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+    color: var(--white);
+    background-image: url('../assets/images/homepage_bg_full.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: #5ab1e4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px; /* DIUBAH: Mengurangi padding default dari 20px menjadi 15px */
+}
+
+a {
+    color: var(--link-color-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: var(--hover-color-light);
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin: 15px 10px;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 10;
+    position: relative;
+    font-size: 1.1em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: var(--light-blue-1);
+    border-color: var(--light-blue-1);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
