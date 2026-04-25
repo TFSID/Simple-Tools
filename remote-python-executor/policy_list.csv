@@ -1,0 +1,17 @@
+Policy Name,Enforcement Mode,Virtual Server,Last Updated,Score
+policy-dcap-eoffice,Transparent,VS-DCAP-EOFFICE,2026-04-20 16:21:55,2/10
+policy-dho-ai-central,Transparent,VS-DHO-AI-CENTRAL,2026-04-12 00:14:43,2/10
+policy-dho-ai-central-apiai,Transparent,VS-DHO-AI-CENTRAL,2026-04-12 11:05:11,2/10
+policy-dho-ai-central-monitor,Transparent,VS-DHO-AI-CENTRAL,2026-04-13 23:29:10,2/10
+policy-dho-devapi,Transparent,VS-DHO-DEVAPI,2026-04-20 16:21:47,2/10
+policy-dho-middleware,Transparent,VS-DHO-MIDDLEWARE,2026-04-20 16:21:58,2/10
+policy-difs-eoffice,Transparent,VS-DIFS-EOFFICE,2026-04-05 01:22:35,2/10
+policy-kitb-svr,Transparent,VS-KITB-SVR,2026-02-28 16:11:40,0/10
+policy-pano,Transparent,VS-DHO-PANO,2024-12-16 16:35:54,0/10
+policy-rdoap,Transparent,-,2025-02-09 19:10:46,0/10
+policy-rdoap-8443,Transparent,-,2025-02-09 19:10:28,0/10
+policy-rdoap-dev,Transparent,-,2026-04-20 16:22:59,2/10
+policy-rdoap-dev-443,Transparent,-,2026-04-20 16:22:50,2/10
+policy-rdoap-dev-8080,Transparent,-,2026-04-20 16:22:56,2/10
+policy-rdosvr2,Transparent,-,2026-04-20 16:23:01,2/10
+policy-rdosvr2-9443,Transparent,-,2026-04-20 16:22:52,-
